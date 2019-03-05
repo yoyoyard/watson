@@ -82,13 +82,21 @@
           >awesome-vue</a
         >
       </li>
+      <li>
+        <Button type="warning">test</Button>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { Button } from 'element-ui';
+
 export default {
   name: "HelloWorld",
+  components: {
+    Button,
+  },
   props: {
     msg: String
   }
