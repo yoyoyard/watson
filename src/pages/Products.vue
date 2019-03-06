@@ -3,17 +3,16 @@
     <title-bar title_name="基因检测" />
     <el-card :body-style="{ padding: '0px' }" v-for="(o, index) in 5" :key="o">
       <div style="padding: 14px;">
-        <div class="item-title">儿童关爱 基础套餐{{ index }}</div>
-        <div class="item-title small-text">儿童关爱天赋2项</div>
-        <div>
+        <div class="item">儿童关爱 基础套餐{{ index }}</div>
+        <el-button class="order_btn">购买</el-button>
+        <div class="item small-text">儿童关爱天赋2项</div>
+        <div class="img">
           <img src="../assets/logo.png" class="image" />
         </div>
-        <div class="bottom clearfix">
-          <time class="time">2019.03.03</time>
-          <el-button type="text" class="button">操作按钮</el-button>
-        </div>
+        <div class="item time">2019.03.03</div>
       </div>
     </el-card>
+    <div class="fix-nav"></div>
     <navigator :activeIndex="activeIndex" />
   </div>
 </template>
@@ -21,6 +20,7 @@
 <script>
 import Navigator from "../components/Navigator";
 import TitleBar from "../components/TitleBar";
+
 export default {
   name: "HelloWorld",
   components: {
@@ -39,7 +39,10 @@ export default {
 </script>
 
 <style scoped>
-.item-title {
+.el-card {
+  margin: 10px 0;
+}
+.item {
   position: block;
   text-align: left;
 }
@@ -50,21 +53,18 @@ export default {
   font-size: 13px;
   color: #999;
 }
-.button {
-  padding: 0;
+.order_btn {
+  padding: 0.5em;
   float: right;
 }
+
 .image {
-  width: 20%;
+  width: 15%;
+  margin-left: auto;
+  margin-right: auto;
   display: block;
 }
-
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-.clearfix:after {
-  clear: both;
+.fix-nav {
+  height: 60px;
 }
 </style>
