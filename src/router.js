@@ -8,7 +8,27 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "Home",
+      name: "home",
+      component: () => import("./pages/Home.vue")
+    },
+    {
+      path: "/products",
+      name: "products",
+      component: () => import("./pages/Products.vue")
+    },
+    {
+      path: "/order",
+      name: "order",
+      component: () => import("./pages/Order.vue")
+    },
+    {
+      path: "/mypage",
+      name: "mypage",
+      component: () => import("./pages/MyPage.vue")
+    },
+    {
+      path: "/hello",
+      name: "hello",
       component: () => import("./pages/HelloWorld.vue")
     },
     {
