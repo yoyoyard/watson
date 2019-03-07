@@ -1,6 +1,6 @@
 <template>
-  <div class="order">
-    <title-bar title_name="我的订单" />
+  <div>
+    <title-bar title="我的订单" />
     <div>
       <div class="order-my-all">查看所有订单</div>
       <div class="order-my-mytext">我的订单</div>

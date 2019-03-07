@@ -1,6 +1,6 @@
 <template>
-  <div class="products">
-    <title-bar title_name="基因检测" />
+  <div>
+    <title-bar title="基因检测" />
     <el-card :body-style="{ padding: '0px' }" v-for="(o, index) in 5" :key="o">
       <div style="padding: 14px;">
         <div class="item">儿童关爱 基础套餐{{ index }}</div>

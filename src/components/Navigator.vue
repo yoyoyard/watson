@@ -1,44 +1,63 @@
 <template>
-  <el-footer class="nav-bar">
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu"
-      mode="horizontal"
-      @select="handleSelect"
+  <div class="weui-tabbar">
+    <router-link
+      to="/"
+      class="weui-tabbar__item"
+      :class="{ 'weui-bar__item_on': activeIndex === 'home' }"
     >
-      <el-menu-item index="home">
+      <img src="../assets/images/home.png" alt="" class="weui-tabbar__icon" />
+      <p class="weui-tabbar__label">
         首页
-      </el-menu-item>
-      <el-menu-item index="products">
+      </p>
+    </router-link>
+    <router-link
+      to="/products"
+      class="weui-tabbar__item"
+      :class="{ 'weui-bar__item_on': activeIndex === 'products' }"
+    >
+      <img
+        src="../assets/images/product.png"
+        alt=""
+        class="weui-tabbar__icon"
+      />
+      <p class="weui-tabbar__label">
         基因检测
-      </el-menu-item>
-      <el-menu-item index="order">
+      </p>
+    </router-link>
+    <router-link
+      to="/order"
+      class="weui-tabbar__item"
+      :class="{ 'weui-bar__item_on': activeIndex === 'order' }"
+    >
+      <img src="../assets/images/order.png" alt="" class="weui-tabbar__icon" />
+      <p class="weui-tabbar__label">
         订单
-      </el-menu-item>
-      <el-menu-item index="mypage">
+      </p>
+    </router-link>
+    <router-link
+      to="/mypage"
+      class="weui-tabbar__item"
+      :class="{ 'weui-bar__item_on': activeIndex === 'mypage' }"
+    >
+      <img src="../assets/images/my.png" alt="" class="weui-tabbar__icon" />
+      <p class="weui-tabbar__label">
         我的
-      </el-menu-item>
-    </el-menu>
-  </el-footer>
+      </p>
+    </router-link>
+  </div>
 </template>
 <script>
 export default {
   props: {
     activeIndex: String
-  },
-  methods: {
-    handleSelect(key) {
-      this.$router.push({ name: key });
-    }
   }
 };
 </script>
 
 <style scoped>
-.nav-bar {
+.weui-tabbar {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: white;
 }
 </style>

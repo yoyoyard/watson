@@ -1,6 +1,6 @@
 <template>
-  <div class="products">
-    <title-bar title_name="我的" />
+  <div>
+    <title-bar title="我的" />
     <el-main>
       Main
     </el-main>
