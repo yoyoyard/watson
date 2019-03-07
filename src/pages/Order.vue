@@ -1,49 +1,51 @@
 <template>
   <div>
     <title-bar title="我的订单" />
-    <div>
-      <div class="order-my-all">查看所有订单</div>
-      <div class="order-my-mytext">我的订单</div>
-      <div class="line"></div>
+    <div class="weui-tab">
+      <div class="weui-navbar">
+        <div class="weui-navbar__item weui-bar__item_on">
+          所有订单
+        </div>
+        <div class="weui-navbar__item">
+          未完成的订单
+        </div>
+      </div>
+      <div class="weui-tab__panel">
+        <div class="weui-panel__hd">订单列表</div>
+        <div class="weui-panel_access">
+          <router-link
+            to="/products/detail"
+            v-for="(o, index) in 6"
+            :key="o"
+            class="weui-media-box weui-media-box_appmsg"
+          >
+            <div class="weui-media-box__hd">
+              <img src="../assets/logo.png" class="weui-media-box__thumb" />
+            </div>
+            <div class="weui-media-box__bd">
+              <h4 class="weui-media-box__title">
+                儿童关爱 基础套餐{{ index + 1 }}
+              </h4>
+              <p class="weui-media-box__desc">
+                儿童关爱天赋2项, 性格测试50项，基因起源缺陷分析100项
+              </p>
+              <div class="weui-media-box__desc weui-flex">
+                <div class="weui-flex__item">
+                  <div class="placeholder">查看物流</div>
+                </div>
+                <div class="weui-flex__item">
+                  <div class="placeholder">评价</div>
+                </div>
+                <div class="weui-flex__item">
+                  <div class="placeholder">申请开票</div>
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </div>
     </div>
-    <el-row>
-      <el-col :span="6">
-        <img src="../assets/logo.png" class="order-thumb" />
-        未支付
-      </el-col>
-      <el-col :span="6">
-        <img src="../assets/logo.png" class="order-thumb" />
-        待发货
-      </el-col>
-      <el-col :span="6">
-        <img src="../assets/logo.png" class="order-thumb" />
-        待收货
-      </el-col>
-      <el-col :span="6">
-        <img src="../assets/logo.png" class="order-thumb" />
-        售后
-      </el-col>
-    </el-row>
-
-    <div class="order-my-mytext">最近订单</div>
-    <el-card class="item-card" v-for="(o, index) in 4" :key="o">
-      <el-row type="flex">
-        <el-col :span="6" class="item-aside">
-          <img src="../assets/logo.png" class="item-image" />
-        </el-col>
-        <el-col :span="18">
-          <div class="item-status">正在出库</div>
-          <div class="item-title">儿童关爱 基础套餐{{ index }}</div>
-          <div class="item-infos">
-            <div>订单号：1234567890</div>
-            <div>数 量：3</div>
-            <div>实 付：￥123</div>
-          </div>
-        </el-col>
-      </el-row>
-    </el-card>
-    <div class="fix-nav"></div>
-    <navigator :activeIndex="activeIndex" />
+    <navigator activeIndex="order" />
   </div>
 </template>
 
@@ -67,58 +69,26 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
-.line {
-  border-bottom: 1px solid #969696;
+<style lang="scss" scoped>
+.weui-tab {
+  margin-bottom: 50px;
+  margin-top: 50px;
+  .weui-navbar {
+    position: fixed;
+    top: 50px;
+    width: 100%;
+  }
 }
-.order-my{
-  font-size: 1em;
-}
-.order-my-mytext{
-  margin-top: 5%;
-  text-align: left;
-}
-.order-my-all {
-  font-size: 0.8em;
-  color: #999;
-  float: right;
-}
-.order-my-all::after {
-  content: ">";
-}
-.order-thumb {
-  width: 30%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10%;
-  display: block;
-}
-
-.item-card{
-  margin-bottom: 10px;
-}
-.item-aside{
-  margin-right: 5%;
-}
-.item-status{
-  float: right;
-  font-size: 0.8em;
-  color: #444;
-}
-.item-title {
-  text-align: left;
-  font-size: 0.8em;
-}
-.item-infos{
-  text-align: left;
-  font-size: 0.8em;
-}
-
-
-.item-image {
+.weui-flex {
+  margin-top: 8px;
   width: 100%;
-}
-.fix-nav {
-  height: 60px;
+  float: right;
+  .weui-flex__item {
+    margin: 4px;
+    padding: 4px;
+    border: 1px solid lightblue;
+    border-radius: 16px;
+    text-align: center;
+  }
 }
 </style>

@@ -12,9 +12,9 @@ export default new Router({
       component: () => import("./pages/Home.vue")
     },
     {
-      path: "/products",
-      name: "products",
-      component: () => import("./pages/Products.vue")
+      path: "/product",
+      name: "product",
+      component: () => import("./pages/Product.vue")
     },
     {
       path: "/order",

@@ -84,7 +84,7 @@
         </div>
       </div>
     </div>
-    <navigator :activeIndex="activeIndex" />
+    <navigator activeIndex="home" />
   </div>
 </template>
 
@@ -110,11 +110,7 @@ export default {
     });
   },
 
-  data() {
-    return {
-      activeIndex: "home"
-    };
-  }
+  data() {}
 };
 </script>
 
@@ -142,10 +138,6 @@ export default {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
-}
-.page {
-  margin-bottom: 50px;
-  margin-top: 50px;
 }
 .weui-flex {
   margin: 16px;

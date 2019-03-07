@@ -11,9 +11,9 @@
       </p>
     </router-link>
     <router-link
-      to="/products"
+      to="/product"
       class="weui-tabbar__item"
-      :class="{ 'weui-bar__item_on': activeIndex === 'products' }"
+      :class="{ 'weui-bar__item_on': activeIndex === 'product' }"
     >
       <img
         src="../assets/images/product.png"
@@ -31,7 +31,7 @@
     >
       <img src="../assets/images/order.png" alt="" class="weui-tabbar__icon" />
       <p class="weui-tabbar__label">
-        订单
+        我的订单
       </p>
     </router-link>
     <router-link
@@ -41,7 +41,7 @@
     >
       <img src="../assets/images/my.png" alt="" class="weui-tabbar__icon" />
       <p class="weui-tabbar__label">
-        我的
+        个人中心
       </p>
     </router-link>
   </div>

@@ -1,10 +1,39 @@
 <template>
   <div>
     <title-bar title="我的" />
-    <el-main>
-      Main
-    </el-main>
-    <navigator :activeIndex="activeIndex" />
+    <div class="page">
+      <div class="account">
+        <img src="../assets/logo.png" class="avatar" />
+        <h5 class="page__title">个人中心</h5>
+      </div>
+      <div class="weui-panel">
+        <div class="weui-panel__hd">张三</div>
+        <div class="weui-panel__bd">
+          <div class="weui-media-box weui-media-box_small-appmsg">
+            <div class="weui-cells">
+              <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd weui-cell_primary">
+                  <p>修改密码</p>
+                </div>
+                <span class="weui-cell__ft"></span>
+              </a>
+              <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd weui-cell_primary">
+                  <p>个人信息</p>
+                </div>
+                <span class="weui-cell__ft"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__bd weui-cell_primary">
+          <p class="weui-btn weui-btn_warn">退出登录</p>
+        </div>
+      </a>
+    </div>
+    <navigator activeIndex="mypage" />
   </div>
 </template>
 
@@ -20,28 +49,19 @@ export default {
   props: {
     msg: String
   },
-  data() {
-    return {
-      activeIndex: "mypage"
-    };
-  }
+  data() {}
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+<style lang="scss" scoped>
+@import "@/assets/styles/base.scss";
+
+.account {
+  text-align: center;
+  margin: 16px;
+  .avatar {
+    max-width: 40%;
+    max-width: 30%;
+  }
 }
 </style>
