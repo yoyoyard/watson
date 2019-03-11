@@ -4,10 +4,18 @@
     <div class="page article">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">Slide 1</div>
-          <div class="swiper-slide">Slide 2</div>
-          <div class="swiper-slide">Slide 3</div>
-          <div class="swiper-slide">Slide 4</div>
+          <div class="swiper-slide">
+            <img src="../assets/images/1.jpg" class="slider" />
+          </div>
+          <div class="swiper-slide">
+            <img src="../assets/images/2.jpg" class="slider" />
+          </div>
+          <div class="swiper-slide">
+            <img src="../assets/images/3.jpg" class="slider" />
+          </div>
+          <div class="swiper-slide">
+            <img src="../assets/images/4.jpg" class="slider" />
+          </div>
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
@@ -86,6 +94,11 @@ export default {
 
   mounted() {
     new Swiper(".swiper-container", {
+      speed: 400,
+      loop: true,
+      autoplay: {
+        delay: 5000
+      },
       pagination: {
         el: ".swiper-pagination"
       }
@@ -101,7 +114,7 @@ export default {
 
 .swiper-container {
   width: 100%;
-  height: 150px;
+  height: 90vw;
 }
 .swiper-slide {
   text-align: center;
@@ -120,6 +133,9 @@ export default {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
+}
+.slider {
+  width: 100vw;
 }
 .weui-flex {
   margin: 16px;
