@@ -1,0 +1,9 @@
+mutation addAuthUser ($input: AuthUserInput!) {
+  CreateAuthUser (input: $input) {
+    user {
+      id
+      cellphone
+    }
+    token
+  }
+}
