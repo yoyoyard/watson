@@ -2,7 +2,7 @@
   <div class="container">
     <title-bar title="WATSON" />
     <ApolloMutation
-      :mutation="require('../graphql/createAuthUser.gql')"
+      :mutation="require('@/graphql/createAuthUser.gql')"
       :variables="{
         input: {
           cellphone: cellphone,
@@ -49,8 +49,8 @@
   </div>
 </template>
 <script>
-import TitleBar from "../components/TitleBar";
-import { onLogin } from "../vue-apollo";
+import TitleBar from "@/components/TitleBar";
+import { onLogin } from "@/vue-apollo";
 
 export default {
   components: {
@@ -75,7 +75,7 @@ export default {
 @import "@/assets/styles/base.scss";
 .container {
   height: calc(100vh - 50px);
-  background-image: url("../assets/images/bg.jpg");
+  background-image: url("~@/assets/images/bg.jpg");
   background-repeat: no-repeat;
 }
 .page {

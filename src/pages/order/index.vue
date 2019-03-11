@@ -20,7 +20,7 @@
             class="weui-media-box weui-media-box_appmsg"
           >
             <div class="weui-media-box__hd">
-              <img src="../assets/logo.png" class="weui-media-box__thumb" />
+              <img src="@/assets/logo.png" class="weui-media-box__thumb" />
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">
@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import Navigator from "../components/Navigator";
-import TitleBar from "../components/TitleBar";
+import Navigator from "@/components/Navigator";
+import TitleBar from "@/components/TitleBar";
 export default {
   name: "HelloWorld",
   components: {

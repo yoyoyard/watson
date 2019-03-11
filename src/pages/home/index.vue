@@ -5,16 +5,16 @@
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <img src="../assets/images/1.jpg" class="slider" />
+            <img src="@/assets/images/1.jpg" class="slider" />
           </div>
           <div class="swiper-slide">
-            <img src="../assets/images/2.jpg" class="slider" />
+            <img src="@/assets/images/2.jpg" class="slider" />
           </div>
           <div class="swiper-slide">
-            <img src="../assets/images/3.jpg" class="slider" />
+            <img src="@/assets/images/3.jpg" class="slider" />
           </div>
           <div class="swiper-slide">
-            <img src="../assets/images/4.jpg" class="slider" />
+            <img src="@/assets/images/4.jpg" class="slider" />
           </div>
         </div>
         <!-- Add Pagination -->
@@ -34,7 +34,7 @@
             class="weui-media-box weui-media-box_appmsg"
           >
             <div class="weui-media-box__hd">
-              <img src="../assets/logo.png" class="weui-media-box__thumb" />
+              <img src="@/assets/logo.png" class="weui-media-box__thumb" />
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">我们是谁</h4>
@@ -48,7 +48,7 @@
             class="weui-media-box weui-media-box_appmsg"
           >
             <div class="weui-media-box__hd">
-              <img src="../assets/logo.png" class="weui-media-box__thumb" />
+              <img src="@/assets/logo.png" class="weui-media-box__thumb" />
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">我们提供什么</h4>
@@ -62,7 +62,7 @@
             class="weui-media-box weui-media-box_appmsg"
           >
             <div class="weui-media-box__hd">
-              <img src="../assets/logo.png" class="weui-media-box__thumb" />
+              <img src="@/assets/logo.png" class="weui-media-box__thumb" />
             </div>
             <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">为什么选择我们</h4>
@@ -79,8 +79,8 @@
 </template>
 
 <script>
-import Navigator from "../components/Navigator";
-import TitleBar from "../components/TitleBar";
+import Navigator from "@/components/Navigator";
+import TitleBar from "@/components/TitleBar";
 import Swiper from "swiper";
 import "swiper/dist/css/swiper.min.css";
 

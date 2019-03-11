@@ -1,0 +1,11 @@
+query fetchAllProducts {
+  goods {
+    avatar
+    id
+    name
+    price
+    description
+    insertedAt
+    updatedAt
+  }
+}

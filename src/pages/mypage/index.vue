@@ -3,7 +3,7 @@
     <title-bar title="我的" />
     <div class="page">
       <div class="account">
-        <img src="../assets/logo.png" class="avatar" />
+        <img src="@/assets/logo.png" class="avatar" />
         <h5 class="page__title">个人中心</h5>
       </div>
       <div class="weui-panel">
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import Navigator from "../components/Navigator";
-import TitleBar from "../components/TitleBar";
+import Navigator from "@/components/Navigator";
+import TitleBar from "@/components/TitleBar";
 export default {
   name: "HelloWorld",
   components: {

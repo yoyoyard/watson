@@ -7,29 +7,29 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: () => import("./pages/Home.vue")
-    },
-    {
       path: "/login",
       name: "login",
-      component: () => import("./pages/Login.vue")
+      component: () => import("./pages/login/index.vue")
+    },
+    {
+      path: "/",
+      name: "home",
+      component: () => import("./pages/home/index.vue")
     },
     {
       path: "/product",
       name: "product",
-      component: () => import("./pages/Product.vue")
+      component: () => import("./pages/product/index.vue")
     },
     {
       path: "/order",
       name: "order",
-      component: () => import("./pages/Order.vue")
+      component: () => import("./pages/order/index.vue")
     },
     {
       path: "/mypage",
       name: "mypage",
-      component: () => import("./pages/MyPage.vue")
+      component: () => import("./pages/mypage/index.vue")
     },
     {
       path: "/hello",
