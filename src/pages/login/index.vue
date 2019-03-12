@@ -65,7 +65,7 @@ export default {
   methods: {
     handleDone(result) {
       const { token } = result.data.CreateAuthUser;
-      onLogin(this.$apollo.provider.defaultClient, `Bearer ${token}`);
+      onLogin(this.$apollo.provider.defaultClient, token);
       this.$router.push("/");
     }
   }

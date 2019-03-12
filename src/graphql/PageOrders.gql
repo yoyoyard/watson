@@ -1,0 +1,14 @@
+query fetchCurrentOrders{
+  currentUser {
+    orders {
+    id
+    good{
+      id
+      name
+      description
+    }
+    amount
+    number
+    }
+  }
+}

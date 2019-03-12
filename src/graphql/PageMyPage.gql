@@ -1,0 +1,7 @@
+query fetchCurrentUser {
+  currentUser {
+    id
+    name
+    avatar
+  }
+}
