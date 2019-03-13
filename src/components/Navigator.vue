@@ -5,31 +5,27 @@
       class="weui-tabbar__item"
       :class="{ 'weui-bar__item_on': activeIndex === 'home' }"
     >
-      <img src="../assets/images/home.png" alt="" class="weui-tabbar__icon" />
+      <img src="@/assets/images/home.png" alt="" class="weui-tabbar__icon" />
       <p class="weui-tabbar__label">
         首页
       </p>
     </router-link>
     <router-link
-      to="/product"
+      to="/products"
       class="weui-tabbar__item"
-      :class="{ 'weui-bar__item_on': activeIndex === 'product' }"
+      :class="{ 'weui-bar__item_on': activeIndex === 'products' }"
     >
-      <img
-        src="../assets/images/product.png"
-        alt=""
-        class="weui-tabbar__icon"
-      />
+      <img src="@/assets/images/product.png" alt="" class="weui-tabbar__icon" />
       <p class="weui-tabbar__label">
         基因检测
       </p>
     </router-link>
     <router-link
-      to="/order"
+      to="/orders"
       class="weui-tabbar__item"
-      :class="{ 'weui-bar__item_on': activeIndex === 'order' }"
+      :class="{ 'weui-bar__item_on': activeIndex === 'orders' }"
     >
-      <img src="../assets/images/order.png" alt="" class="weui-tabbar__icon" />
+      <img src="@/assets/images/order.png" alt="" class="weui-tabbar__icon" />
       <p class="weui-tabbar__label">
         我的订单
       </p>
@@ -39,7 +35,7 @@
       class="weui-tabbar__item"
       :class="{ 'weui-bar__item_on': activeIndex === 'mypage' }"
     >
-      <img src="../assets/images/my.png" alt="" class="weui-tabbar__icon" />
+      <img src="@/assets/images/my.png" alt="" class="weui-tabbar__icon" />
       <p class="weui-tabbar__label">
         个人中心
       </p>

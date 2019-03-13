@@ -1,0 +1,10 @@
+query fetchProductDetail($id: ID!){
+  good(id: $id){
+    id
+    avatar
+    name
+    description
+    price
+    updatedAt
+  }
+}

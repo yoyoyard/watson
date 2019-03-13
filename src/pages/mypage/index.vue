@@ -1,7 +1,7 @@
 <template>
   <div>
     <title-bar title="我的" />
-    <ApolloQuery :query="require('@/graphql/PageMyPage.gql')">
+    <ApolloQuery :query="require('@/graphql/page/MyPage.gql')">
       <template slot-scope="{ result: { loading, error, data } }">
         <!-- Loading -->
         <div v-if="loading" class="loading apollo">Loading...</div>

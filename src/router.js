@@ -17,14 +17,24 @@ export default new Router({
       component: () => import("./pages/home/index.vue")
     },
     {
-      path: "/product",
-      name: "product",
-      component: () => import("./pages/product/index.vue")
+      path: "/products",
+      name: "products",
+      component: () => import("./pages/products/index.vue")
     },
     {
-      path: "/order",
+      path: "/products/:id",
+      name: "product",
+      component: () => import("./pages/products/detail.vue")
+    },
+    {
+      path: "/orders",
+      name: "orders",
+      component: () => import("./pages/orders/index.vue")
+    },
+    {
+      path: "/orders/:id",
       name: "order",
-      component: () => import("./pages/order/index.vue")
+      component: () => import("./pages/orders/detail.vue")
     },
     {
       path: "/mypage",

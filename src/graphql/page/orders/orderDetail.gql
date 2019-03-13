@@ -1,0 +1,15 @@
+query fetchOrderDetail($id: ID!){
+  order(id: $id){
+    id
+    good{
+      name
+      description
+    }
+    addressId
+    number
+    amount
+    address {
+      detail
+    }
+  }
+}

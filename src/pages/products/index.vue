@@ -4,7 +4,7 @@
     <div class="page weui-grids">
       <div class="weui-panel weui-panel_access">
         <div class="weui-panel__bd">
-          <ApolloQuery :query="require('@/graphql/PageProducts.gql')">
+          <ApolloQuery :query="require('@/graphql/page/Products.gql')">
             <template slot-scope="{ result: { loading, error, data } }">
               <!-- Loading -->
               <div v-if="loading" class="loading apollo">Loading@.</div>
@@ -15,7 +15,7 @@
               <!-- Result -->
               <div v-else-if="data" class="result apollo">
                 <router-link
-                  to="/products/detail"
+                  :to="{ name: 'product', params: { id: good.id } }"
                   v-for="good in data.goods"
                   :key="good.id"
                   class="weui-media-box weui-media-box_appmsg"
@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="fix-nav"></div>
-    <navigator activeIndex="product" />
+    <navigator activeIndex="products" />
   </div>
 </template>
 
