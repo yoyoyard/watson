@@ -6,13 +6,8 @@
         :variables="{ id: $route.params.id }"
       >
         <template slot-scope="{ result: { loading, error, data } }">
-          <!-- Loading -->
           <div v-if="loading" class="loading apollo">Loading...</div>
-
-          <!-- Error -->
           <div v-else-if="error" class="error apollo">An error occured</div>
-
-          <!-- Result -->
           <div v-else-if="data" class="result apollo">
             <div>{{ data.good.avatar }}</div>
             <table>
@@ -35,9 +30,19 @@
                 </tr>
               </tbody>
             </table>
+            <div>
+              <a
+                class="weui-cell weui-cell_access"
+                href="javascript:void(0);"
+                @click="toShopping()"
+              >
+                <div class="weui-cell__bd weui-cell_primary">
+                  <p class="weui-btn weui-btn_warn">购 买</p>
+                </div>
+              </a>
+            </div>
           </div>
-          <!-- No result -->
-          <div v-else class="no-result apollo">No result :(</div>
+          <div v-else class="no-result apollo">No result :</div>
         </template>
       </ApolloQuery>
     </div>
@@ -52,7 +57,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.$route.params);
     this.id = this.$route.params.id;
   },
 
@@ -63,6 +67,12 @@ export default {
       },
       id: ""
     };
+  },
+
+  methods: {
+    toShopping: function() {
+      this.$router.push({ name: "shopping", query: { goodId: this.id } });
+    }
   }
 };
 </script>

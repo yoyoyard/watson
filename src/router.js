@@ -27,6 +27,11 @@ export default new Router({
       component: () => import("./pages/products/detail.vue")
     },
     {
+      path: "/shopping",
+      name: "shopping",
+      component: () => import("./pages/shopping/index.vue")
+    },
+    {
       path: "/orders",
       name: "orders",
       component: () => import("./pages/orders/index.vue")

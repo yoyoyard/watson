@@ -1,32 +1,26 @@
 <template>
   <div>
     <div class="page weui-grids">
-      <input type="text" v-model="oid" />
-      <div>{{ fetchOd }}</div>
       <ApolloQuery
         :query="queries.fetchOrderDetail"
         :variables="{ id: $route.params.id }"
         fetchPolicy="network-only"
-        :debounce="5000"
       >
         <template slot-scope="{ result: { loading, error, data } }">
-          <!-- Loading -->
           <div v-if="loading" class="loading apollo">Loading...</div>
-
-          <!-- Error -->
           <div v-else-if="error" class="error apollo">
             tag An error occured
           </div>
-
-          <!-- Result -->
           <div v-else-if="data" class="result apollo">
-            <!--             <table>
+            <table>
               <tbody>
                 <tr>
                   <td>name</td>
+                  <td>{{ data.order.good.name }}</td>
                 </tr>
                 <tr>
                   <td>description</td>
+                  <td>{{ data.order.good.description }}</td>
                 </tr>
                 <tr>
                   <td>number</td>
@@ -36,10 +30,13 @@
                   <td>amount</td>
                   <td>{{ data.order.number }}</td>
                 </tr>
+                <tr>
+                  <td>address</td>
+                  <td>{{ data.order.address.detail }}</td>
+                </tr>
               </tbody>
-            </table> -->
+            </table>
           </div>
-          <!-- No result -->
           <div v-else class="no-result apollo">No result :(</div>
         </template>
       </ApolloQuery>
@@ -49,35 +46,14 @@
 
 <script>
 import { fetchOrderDetail } from "@/graphql/page/orders/orderDetail.gql";
-import gql from "graphql-tag";
 
 export default {
-  apollo: {
-    fetchOd: gql`
-        query fetchOrderDetail($id: ID!) {
-          order(id: $id) {
-            id
-            good {
-              name
-              description
-            }
-            addressId
-            number
-            amount
-            address {
-              detail
-            }
-          }
-        }
-      `,
-      variables() {
-        return { id: this.oid };
-      }
-    }
-  },
-
   props: {
     msg: String
+  },
+
+  beforeMount() {
+    this.oid = this.$route.params.id;
   },
 
   mounted() {
@@ -86,11 +62,11 @@ export default {
 
   data() {
     return {
+      oid: "",
+      fetchOd: "",
       queries: {
         fetchOrderDetail: fetchOrderDetail
-      },
-      oid: this.$route.params.id,
-      fetchOd: ""
+      }
     };
   }
 };

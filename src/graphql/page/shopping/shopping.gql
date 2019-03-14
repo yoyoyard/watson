@@ -1,0 +1,17 @@
+query fetchShoppingBaseInfo($goodId: ID!){
+  currentUser{
+    addresses {
+      id
+      name
+      province
+      city
+      detail
+    }
+  }
+  good(id: $goodId){
+    id
+    name
+    description
+    price
+  }
+}

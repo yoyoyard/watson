@@ -24,6 +24,7 @@
       to="/orders"
       class="weui-tabbar__item"
       :class="{ 'weui-bar__item_on': activeIndex === 'orders' }"
+      v-show="isLogin()"
     >
       <img src="@/assets/images/order.png" alt="" class="weui-tabbar__icon" />
       <p class="weui-tabbar__label">
@@ -43,9 +44,15 @@
   </div>
 </template>
 <script>
+import { isLogin } from "@/vue-apollo";
+
 export default {
   props: {
     activeIndex: String
+  },
+
+  methods: {
+    isLogin
   }
 };
 </script>
