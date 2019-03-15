@@ -1,0 +1,14 @@
+mutation createWechatAuthUser($input: WechatAuthUserInput!) {
+  createWechatAuthUser (input: $input) {
+    user {
+      id
+      name
+      wechatDigest
+      avatar
+    }
+    token
+    error {
+      message
+    }
+  }
+}
