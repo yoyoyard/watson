@@ -1,5 +1,6 @@
 <template>
   <div>
+    <title-bar title="基因检测产品" back="/products" />
     <div class="page weui-grids">
       <ApolloQuery
         :query="queries.fetchProductDetail"
@@ -9,23 +10,23 @@
           <div v-if="loading" class="loading apollo">Loading...</div>
           <div v-else-if="error" class="error apollo">An error occured</div>
           <div v-else-if="data" class="result apollo">
-            <div>{{ data.good.avatar }}</div>
+            <div><img :src="data.good.avatar" class="avatar" /></div>
             <table>
               <tbody>
                 <tr>
-                  <td>name</td>
+                  <td>产品名</td>
                   <td>{{ data.good.name }}</td>
                 </tr>
                 <tr>
-                  <td>description</td>
+                  <td>产品介绍</td>
                   <td>{{ data.good.description }}</td>
                 </tr>
                 <tr>
-                  <td>number</td>
+                  <td>价格</td>
                   <td>{{ data.good.price }}</td>
                 </tr>
                 <tr>
-                  <td>amount</td>
+                  <td>上架时间</td>
                   <td>{{ data.good.updatedAt }}</td>
                 </tr>
               </tbody>
@@ -51,9 +52,15 @@
 
 <script>
 import { fetchProductDetail } from "@/graphql/page/products/productDetail.gql";
+import TitleBar from "@/components/TitleBar";
+
 export default {
   props: {
     msg: String
+  },
+
+  components: {
+    TitleBar
   },
 
   mounted() {
@@ -79,4 +86,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/styles/base.scss";
+.avatar {
+  width: 100%;
+}
 </style>

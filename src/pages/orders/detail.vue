@@ -1,5 +1,6 @@
 <template>
   <div>
+    <title-bar title="订单详情" back="/order" />
     <div class="page weui-grids">
       <ApolloQuery
         :query="queries.fetchOrderDetail"
@@ -46,10 +47,15 @@
 
 <script>
 import { fetchOrderDetail } from "@/graphql/page/orders/orderDetail.gql";
+import TitleBar from "@/components/TitleBar";
 
 export default {
   props: {
     msg: String
+  },
+
+  components: {
+    TitleBar
   },
 
   beforeMount() {
