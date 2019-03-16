@@ -1,0 +1,12 @@
+query fetchUserAddresses {
+  currentUser {
+    id
+    addresses {
+      id
+      province
+      city
+      detail
+      distinct
+    }
+  }
+}

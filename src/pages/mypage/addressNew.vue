@@ -1,6 +1,6 @@
 <template>
   <div>
-    <title-bar title="订单详情" back="back" />
+    <title-bar title="添加新地址" back="back" />
     <div class="page weui-grids">
       <ApolloQuery
         :query="queries.fetchShoppingBaseInfo"
@@ -91,26 +91,17 @@
         </template>
       </ApolloQuery>
     </div>
-    <weui-distpicker
-      v-if="showDistpicker"
-      :province="province"
-      :city="city"
-      :area="area"
-      @confirm="distpickerConfirm"
-      @cancel="distpickerCancel"
-    ></weui-distpicker>
+
   </div>
 </template>
 <script>
 import { fetchShoppingBaseInfo } from "@/graphql/page/shopping/shopping.gql";
 import TitleBar from "@/components/TitleBar";
 import ladingError from "@/components/loadingError";
-import WeuiDistpicker from "weui-distpicker";
 
 export default {
   components: {
     TitleBar,
-    WeuiDistpicker,
     ladingError
   },
 
@@ -161,36 +152,7 @@ export default {
       console.log(this.province + this.city + this.area);
     },
 
-    distpickerCancel: function() {
-      this.showDistpicker = false;
-    },
 
-    showPicker: function() {
-      const that = this;
-      const addPickerData = this.addresses.map(address => {
-        return {
-          detail: address.detail,
-          label: address.name,
-          value: address.id
-        };
-      });
-
-      const pickerOptions = {
-        className: "custom-classname",
-        defaultValue:
-          that.addresses[0] === undefined ? [] : [that.addresses[0].id],
-        onConfirm: function(result) {
-          that.selectedAddressId = result[0].value;
-          that.selectedAddressDetail = result[0].detail;
-        },
-        id: "singleLinePicker"
-      };
-      weui.picker(addPickerData, pickerOptions); // eslint-disable-line
-    },
-
-    submitOrder: function() {
-      console.log("submitOrder");
-    }
   }
 };
 </script>
