@@ -7,8 +7,11 @@
     >
       <template slot-scope="{ result: { loading, error, data } }">
         <div class="page">
-          <div v-if="loading" class="loading apollo">Loading...</div>
-          <div v-else-if="error" class="error apollo">An error occured</div>
+          <lading-error
+            v-if="loading || error"
+            :loading="loading"
+            :error="error"
+          />
           <div v-else-if="data" class="result apollo">
             <div class="account">
               <img
@@ -39,7 +42,6 @@
               </div>
             </div>
           </div>
-          <div v-else class="no-result apollo">没有信息</div>
         </div>
       </template>
     </ApolloQuery>
@@ -50,11 +52,13 @@
 <script>
 import Navigator from "@/components/Navigator";
 import TitleBar from "@/components/TitleBar";
+import ladingError from "@/components/loadingError";
 
 export default {
   components: {
     TitleBar,
-    Navigator
+    Navigator,
+    ladingError
   },
 
   data() {

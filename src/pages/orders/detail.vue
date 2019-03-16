@@ -8,10 +8,11 @@
         fetchPolicy="network-only"
       >
         <template slot-scope="{ result: { loading, error, data } }">
-          <div v-if="loading" class="loading apollo">Loading...</div>
-          <div v-else-if="error" class="error apollo">
-            tag An error occured
-          </div>
+          <lading-error
+            v-if="loading || error"
+            :loading="loading"
+            :error="error"
+          />
           <div v-else-if="data" class="result apollo">
             <table>
               <tbody>
@@ -38,7 +39,6 @@
               </tbody>
             </table>
           </div>
-          <div v-else class="no-result apollo">No result :(</div>
         </template>
       </ApolloQuery>
     </div>
@@ -48,6 +48,7 @@
 <script>
 import { fetchOrderDetail } from "@/graphql/page/orders/orderDetail.gql";
 import TitleBar from "@/components/TitleBar";
+import ladingError from "@/components/loadingError";
 
 export default {
   props: {
@@ -55,7 +56,8 @@ export default {
   },
 
   components: {
-    TitleBar
+    TitleBar,
+    ladingError
   },
 
   beforeMount() {

@@ -43,7 +43,6 @@ export default {
     const code = query["code"];
     if (code) {
       const client = this.$apolloProvider.defaultClient;
-      debugger;
       const authResult = await client.mutate({
         fetchPolicy: "no-cache",
         mutation: createWechatAuthUser,

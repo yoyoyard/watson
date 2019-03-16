@@ -4,12 +4,15 @@
     <div class="page weui-grids">
       <ApolloQuery
         :query="queries.fetchShoppingBaseInfo"
-        :variables="goodQV"
+        :variables="{ goodId: this.$route.query.goodId }"
         @result="baseInfoDone"
       >
         <template slot-scope="{ result: { loading, error, data } }">
-          <div v-if="loading" class="loading apollo">Loading...</div>
-          <div v-else-if="error" class="error apollo">商品未找到</div>
+          <lading-error
+            v-if="loading || error"
+            :loading="loading"
+            :error="error"
+          />
           <div v-else-if="data && data.good.id !== null" class="data apollo">
             <div class="page preview">
               <div class="page__hd">
@@ -77,7 +80,6 @@
               </div>
             </div>
           </div>
-          <div v-else class="no-result apollo">商品未找到</div>
         </template>
       </ApolloQuery>
     </div>
@@ -86,16 +88,12 @@
 <script>
 import { fetchShoppingBaseInfo } from "@/graphql/page/shopping/shopping.gql";
 import TitleBar from "@/components/TitleBar";
+import ladingError from "@/components/loadingError";
 
 export default {
-  beforeMount() {
-    this.goodQV = {
-      goodId: this.$route.query.goodId
-    };
-  },
-
   components: {
-    TitleBar
+    TitleBar,
+    ladingError
   },
 
   mounted() {},
@@ -105,7 +103,6 @@ export default {
       queries: {
         fetchShoppingBaseInfo: fetchShoppingBaseInfo
       },
-      goodQV: "",
       goodNumber: 1,
       addresses: [],
       selectedAddressId: "",

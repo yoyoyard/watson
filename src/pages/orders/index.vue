@@ -26,10 +26,11 @@
             :variables="ofilter_status_value"
           >
             <template slot-scope="{ result: { loading, error, data } }">
-              <div v-if="loading" class="loading apollo">Loading...</div>
-              <div v-else-if="error" class="error apollo">
-                An error occured
-              </div>
+              <lading-error
+                v-if="loading || error"
+                :loading="loading"
+                :error="error"
+              />
               <div v-else-if="data" class="result apollo">
                 <router-link
                   v-for="o in data.currentUser.orders"
@@ -64,7 +65,6 @@
                   </div>
                 </router-link>
               </div>
-              <div v-else class="no-result apollo">No result :(</div>
             </template>
           </ApolloQuery>
         </div>
@@ -77,13 +77,15 @@
 <script>
 import Navigator from "@/components/Navigator";
 import TitleBar from "@/components/TitleBar";
+import ladingError from "@/components/loadingError";
 
 export default {
   name: "HelloWorld",
 
   components: {
     TitleBar,
-    Navigator
+    Navigator,
+    ladingError
   },
 
   data() {

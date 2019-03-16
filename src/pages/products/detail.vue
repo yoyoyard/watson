@@ -7,8 +7,11 @@
       <template slot-scope="{ result: { loading, error, data } }">
         <title-bar title="基因检测产品" back="/products" />
         <div class="page weui-grids">
-          <div v-if="loading" class="loading apollo">Loading...</div>
-          <div v-else-if="error" class="error apollo">An error occured</div>
+          <lading-error
+            v-if="loading || error"
+            :loading="loading"
+            :error="error"
+          />
           <div v-else-if="data" class="result apollo">
             <div><img :src="data.good.avatar" class="avatar" /></div>
             <table>
@@ -32,7 +35,6 @@
               </tbody>
             </table>
           </div>
-          <div v-else class="no-result apollo">No result :</div>
         </div>
         <div class="weui-tabbar">
           <div class="weui-tabbar__left">
@@ -55,6 +57,7 @@
 <script>
 import { fetchProductDetail } from "@/graphql/page/products/productDetail.gql";
 import TitleBar from "@/components/TitleBar";
+import ladingError from "@/components/loadingError";
 
 export default {
   props: {
@@ -62,7 +65,8 @@ export default {
   },
 
   components: {
-    TitleBar
+    TitleBar,
+    ladingError
   },
 
   mounted() {
@@ -104,7 +108,7 @@ export default {
 }
 .buy-button {
   background: lightsalmon;
-  padding: 6px 12px;
+  padding: 6px 0px 6px 12px;
   font-size: 18px;
   margin-right: 16px;
   border-radius: 20px;
