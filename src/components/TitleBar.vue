@@ -2,7 +2,7 @@
   <div class="weui-tab__header">
     <div class="weui-navbar">
       <a v-show="back" class="back-button" @click="backHandle">返回 </a>
-      <div class="weui-navbar__item">
+      <div class="weui-navbar-title">
         {{ title }}
       </div>
     </div>
@@ -57,5 +57,15 @@ export default {
     top: 18px;
     left: -15px;
   }
+}
+.weui-navbar-title {
+  position: relative;
+  display: block;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  padding: 13px 0;
+  text-align: center;
+  font-size: 15px;
 }
 </style>

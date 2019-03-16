@@ -1,12 +1,12 @@
 <template>
   <div>
-    <title-bar title="基因检测产品" back="/products" />
-    <div class="page weui-grids">
-      <ApolloQuery
-        :query="queries.fetchProductDetail"
-        :variables="{ id: $route.params.id }"
-      >
-        <template slot-scope="{ result: { loading, error, data } }">
+    <ApolloQuery
+      :query="queries.fetchProductDetail"
+      :variables="{ id: $route.params.id }"
+    >
+      <template slot-scope="{ result: { loading, error, data } }">
+        <title-bar title="基因检测产品" back="/products" />
+        <div class="page weui-grids">
           <div v-if="loading" class="loading apollo">Loading...</div>
           <div v-else-if="error" class="error apollo">An error occured</div>
           <div v-else-if="data" class="result apollo">
@@ -31,22 +31,24 @@
                 </tr>
               </tbody>
             </table>
-            <div>
-              <a
-                class="weui-cell weui-cell_access"
-                href="javascript:void(0);"
-                @click="toShopping()"
-              >
-                <div class="weui-cell__bd weui-cell_primary">
-                  <p class="weui-btn weui-btn_warn">购 买</p>
-                </div>
-              </a>
-            </div>
           </div>
           <div v-else class="no-result apollo">No result :</div>
-        </template>
-      </ApolloQuery>
-    </div>
+        </div>
+        <div class="weui-tabbar">
+          <div class="weui-tabbar__left">
+            <img src="@/assets/images/ask.png" class="weui-tabbar__icon" />
+            <p class="weui-tabbar__label">
+              咨询
+            </p>
+          </div>
+          <div class="weui-tabbar__item">
+            <div class="weui-cell__bd weui-cell_primary" @click="toShopping">
+              <p class="buy-button">立即购买</p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </ApolloQuery>
   </div>
 </template>
 
@@ -88,5 +90,24 @@ export default {
 @import "@/assets/styles/base.scss";
 .avatar {
   width: 100%;
+}
+.weui-tabbar__left {
+  display: block;
+  -webkit-box-flex: 0.5;
+  -webkit-flex: 0.5;
+  flex: 0.5;
+  padding: 5px 0 0;
+  font-size: 0;
+  color: #999;
+  text-align: center;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.buy-button {
+  background: lightsalmon;
+  padding: 6px 12px;
+  font-size: 18px;
+  margin-right: 16px;
+  border-radius: 20px;
+  color: white;
 }
 </style>
