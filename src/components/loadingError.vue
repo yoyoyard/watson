@@ -19,6 +19,9 @@
 </template>
 <script>
 export default {
+  props: {
+    loading: Boolean
+  },
   methods: {
     errHandle() {
       window.history.back();
