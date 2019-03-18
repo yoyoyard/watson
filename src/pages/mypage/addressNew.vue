@@ -2,142 +2,157 @@
   <div>
     <title-bar title="添加新地址" back="back" />
     <div class="page weui-grids">
-      <ApolloQuery
-        :query="queries.fetchShoppingBaseInfo"
-        :variables="{ goodId: this.$route.query.goodId }"
-        @result="baseInfoDone"
+      <ApolloMutation
+        :mutation="queries.createAddress"
+        :variables="{
+          info: {
+            name: name,
+            userId: currentUser.id,
+            cellphone: cellphone,
+            province: province,
+            city: city,
+            distinct: distinct,
+            detail: detail
+          }
+        }"
+        @done="createAddressCallback"
       >
-        <template slot-scope="{ result: { loading, error, data } }">
-          <lading-error
-            v-if="loading || error"
-            :loading="loading"
-            :error="error"
-          />
-          <div v-else-if="data && data.good.id !== null" class="data apollo">
-            <div class="page preview">
-              <div class="page__hd">
-                <h1 class="page__title">提交订单</h1>
-                <p class="page__desc">以下是您选购的商品</p>
+        <template slot-scope="{ mutate, loading, error }">
+          <div class="weui-cells weui-cells_form">
+            <weui-distpciker
+              v-if="showDistpicker"
+              :province="province"
+              :city="city"
+              :area="distinct"
+              @confirm="distpickerConfirm"
+              @cancel="distpickerCancel"
+            >
+            </weui-distpciker>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">地区</label>
               </div>
-              <div class="page__hd"></div>
-              <div class="page__bd"></div>
-              <div class="weui-form-preview">
-                <div class="weui-form-preview__hd">
-                  <div class="weui-form-preview__item">
-                    <label class="weui-form-preview__label">付款金额</label>
-                    <em class="weui-form-preview__value"
-                      >¥{{ data.good.price * goodNumber }}</em
-                    >
-                  </div>
-                </div>
-                <div class="weui-form-preview__bd">
-                  <div class="weui-form-preview__item">
-                    <label class="weui-form-preview__label">商品</label>
-                    <span class="weui-form-preview__value">{{
-                      data.good.name
-                    }}</span>
-                  </div>
-                  <div class="weui-form-preview__item">
-                    <label class="weui-form-preview__label">商品描述</label>
-                    <span class="weui-form-preview__value">{{
-                      data.good.description
-                    }}</span>
-                  </div>
-                  <div class="weui-form-preview__item">
-                    <label class="weui-form-preview__label">商品单价</label>
-                    <span class="weui-form-preview__value">{{
-                      data.good.price
-                    }}</span>
-                  </div>
-                  <div class="weui-form-preview__item">
-                    <label class="weui-form-preview__label">购买数量</label>
-                    <span class="weui-form-preview__value">{{
-                      goodNumber
-                    }}</span>
-                  </div>
-                </div>
-                <div class="weui-form-preview__ft"></div>
+              <div class="weui-cell__bd" @click="showNewAddPicker">
+                <input
+                  class="weui-input"
+                  type="text"
+                  :placeholder="`${province}-${city}-${distinct}`"
+                />
               </div>
             </div>
-            <div class="weui-cells">
-              <div v-if="hasAddresses" class="weui-cell" @click="showPicker">
-                <div class="weui-cell__bd">
-                  <p>送货地址</p>
-                </div>
-                <div class="weui-cell__ft">
-                  {{ selectedAddressDetail }}
-                </div>
+            <div class="weui-cell ">
+              <div class="weui-cell__hd">
+                <label class="weui-label">详细地址</label>
               </div>
-              <div v-else class="weui-cell" @click="showNewAddPicker">
-                <div class="weui-cell__bd">
-                  <p>添加送货地址</p>
-                </div>
-                <div class="weui-cell__ft">
-                  <button>新增</button>
-                </div>
+              <div class="weui-cell__bd">
+                <input
+                  class="weui-input"
+                  type="text"
+                  placeholder=""
+                  v-model="detail"
+                />
               </div>
             </div>
-            <div class="button-sp-area">
-              <div class="weui-form-preview__ft">
-                <a
-                  class="weui-form-preview__btn weui-form-preview__btn_primary"
-                  href="javascript:"
-                  @click="submitOrder"
-                  >操作</a
-                >
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">收货人</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input
+                  class="weui-input"
+                  type=""
+                  v-model="name"
+                  placeholder="收货人"
+                />
+              </div>
+            </div>
+            <div class="weui-cell ">
+              <div class="weui-cell__hd">
+                <label class="weui-label">手机号</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input
+                  class="weui-input"
+                  type="tel"
+                  v-model="cellphone"
+                  placeholder="请输入手机号"
+                />
               </div>
             </div>
           </div>
+          <div v-if="currentUser.id !== undefined">
+            <div class="weui-btn-area">
+              <button
+                class="weui-btn weui-btn_primary"
+                :disabled="loading"
+                @click="mutate()"
+              >
+                确定
+              </button>
+            </div>
+          </div>
+          <div v-for="err in callbackErrors" :key="err.key">
+            {{ `${err.key}-${err.message}` }}
+          </div>
+          <loading-error v-if="error" :error="error" />
         </template>
-      </ApolloQuery>
+      </ApolloMutation>
     </div>
-
   </div>
 </template>
 <script>
-import { fetchShoppingBaseInfo } from "@/graphql/page/shopping/shopping.gql";
+import { createAddress } from "@/graphql/page/address/createAddress.gql";
 import TitleBar from "@/components/TitleBar";
-import ladingError from "@/components/loadingError";
+import loadingError from "@/components/loadingError";
+import gql from "graphql-tag";
+import WeuiDistpciker from "weui-distpicker";
 
 export default {
   components: {
     TitleBar,
-    ladingError
+    loadingError,
+    WeuiDistpciker
   },
 
-  mounted() {},
+  apollo: {
+    currentUser: gql`
+      {
+        currentUser {
+          id
+        }
+      }
+    `
+  },
+  mounted() {
+    console.log(this.$apolloData.data.currentUser);
+  },
 
   data() {
     return {
+      currentUser: "",
       showDistpicker: false,
       queries: {
-        fetchShoppingBaseInfo: fetchShoppingBaseInfo
+        createAddress: createAddress
       },
-      goodNumber: 1,
-      addresses: [],
-      selectedAddressId: "",
-      selectedAddressDetail: "请选择地址",
-      province: "湖北省",
-      city: "武汉市",
-      area: ""
+      name: "",
+      cellphone: "",
+      province: "",
+      city: "",
+      distinct: "",
+      detail: "",
+      callbackErrors: []
     };
   },
 
-  watch: {
-    selectedAddressDetail: function(newVal) {
-      console.log(newVal);
-    }
-  },
-
-  computed: {
-    hasAddresses: function() {
-      return this.addresses.length !== 0;
-    }
-  },
-
   methods: {
-    baseInfoDone: function(result) {
-      this.addresses = result.data.currentUser.addresses;
+    createAddressCallback: function(result) {
+      if (result.data.createAddress.address === null) {
+        console.log(result.data.createAddress.errors);
+        this.callbackErrors = result.data.createAddress.errors;
+      } else {
+        console.log(result);
+        this.$router.replace({ name: "mypage-addresses" });
+      }
     },
 
     showNewAddPicker: function() {
@@ -147,12 +162,14 @@ export default {
     distpickerConfirm: function(data) {
       this.province = data[0].label;
       this.city = data.length >= 2 ? data[1].label : "";
-      this.area = data.length == 3 ? data[2].label : "";
+      this.distinct = data.length == 3 ? data[2].label : "";
       this.showDistpicker = false;
-      console.log(this.province + this.city + this.area);
+      console.log(this.province + this.city + this.distinct);
     },
 
-
+    distpickerCancel: function() {
+      this.showDistpicker = false;
+    }
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <title-bar title="添加新地址" back="back" />
+    <title-bar title="我的地址" back="back" />
     <div class="page weui-grids">
       <ApolloQuery :query="queries.fetchUserAddresses" @result="baseInfoDone">
         <template slot-scope="{ result: { loading, error, data } }">
@@ -10,17 +10,37 @@
             :error="error"
           />
           <div v-else-if="data" class="data apollo">
-            <table>
-              <tbody>
-                <tr
+            <div class="weui-panel weui-panel_access">
+              <div class="weui-panel__hd">我的地址列表</div>
+              <div class="weui-panel__bd">
+                <div
+                  class="weui-media-box weui-media-box_text"
                   v-for="address in data.currentUser.addresses"
                   :key="address.id"
+                  :to="{ name: 'mypage-addresses-edit' }"
                 >
-                  <td>{{ address.name }}</td>
-                  <td>{{ address.detail }}</td>
-                </tr>
-              </tbody>
-            </table>
+                  <router-link :to="{ name: 'mypage-addresses-edit' }">
+                    <h4 class="weui-media-box__title">{{ address.name }}</h4>
+                    <p class="weui-media-box__desc">
+                      {{
+                        `${address.province}-${address.city}-${
+                          address.distinct
+                        }`
+                      }}<br />
+                      {{ address.detail }}
+                    </p>
+                  </router-link>
+                </div>
+              </div>
+            </div>
+            <div class="weui-btn-area">
+              <router-link
+                class="weui-btn weui-btn_primary"
+                :to="{ name: 'mypage-addresses-new' }"
+                id="showTooltips"
+                >新增地址
+              </router-link>
+            </div>
           </div>
         </template>
       </ApolloQuery>
@@ -43,17 +63,10 @@ export default {
 
   data() {
     return {
-      showDistpicker: false,
       queries: {
         fetchUserAddresses: fetchUserAddresses
       },
-      goodNumber: 1,
-      addresses: [],
-      selectedAddressId: "",
-      selectedAddressDetail: "请选择地址",
-      province: "湖北省",
-      city: "武汉市",
-      area: ""
+      addresses: []
     };
   },
 
@@ -72,18 +85,6 @@ export default {
   methods: {
     baseInfoDone: function(result) {
       this.addresses = result.data.currentUser.addresses;
-    },
-
-    showNewAddPicker: function() {
-      this.showDistpicker = true;
-    },
-
-    distpickerConfirm: function(data) {
-      this.province = data[0].label;
-      this.city = data.length >= 2 ? data[1].label : "";
-      this.area = data.length == 3 ? data[2].label : "";
-      this.showDistpicker = false;
-      console.log(this.province + this.city + this.area);
     }
   }
 };

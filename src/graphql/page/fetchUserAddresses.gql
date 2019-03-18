@@ -3,6 +3,7 @@ query fetchUserAddresses {
     id
     addresses {
       id
+      name
       province
       city
       detail

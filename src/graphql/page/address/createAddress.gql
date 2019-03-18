@@ -1,0 +1,22 @@
+mutation createAddress($info: CreateAddressInput!){
+  createAddress(input: $info) {
+    errors{
+      key
+      message
+    }
+    address {
+      id
+      name
+      cellphone
+      province
+      city
+      distinct
+      detail
+      user{
+        id
+        name
+        cellphone
+      }
+    }
+  }
+}

@@ -53,6 +53,11 @@ const router = new Router({
       component: () => import("./pages/mypage/addressNew.vue")
     },
     {
+      path: "/mypage/addresses/new",
+      name: "mypage-addresses-edit",
+      component: () => import("./pages/mypage/addressNew.vue")
+    },
+    {
       path: "/hello",
       name: "hello",
       component: () => import("./pages/HelloWorld.vue")
