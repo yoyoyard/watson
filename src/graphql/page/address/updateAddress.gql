@@ -1,0 +1,20 @@
+mutation updateAddress($id: ID!, $info: UpdateAddressInput!){
+  updateAddress(id: $id, input: $info) {
+    errors{
+      message
+      key
+    }
+    address {
+      id
+      name
+      cellphone
+      province
+      city
+      detail
+      user{
+        id
+        cellphone
+      }
+    }
+  }
+}

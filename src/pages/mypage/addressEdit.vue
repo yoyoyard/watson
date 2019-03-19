@@ -1,29 +1,30 @@
 <template>
   <div>
-    <title-bar title="添加新地址" back="back" />
+    <title-bar title="修改地址" back="back" />
     <div class="page weui-grids">
       <ApolloMutation
-        :mutation="queries.createAddress"
+        :mutation="queries.updateAddress"
         :variables="{
+          id: addressId,
           info: {
-            name: name,
             userId: currentUser.id,
-            cellphone: cellphone,
-            province: province,
-            city: city,
-            distinct: distinct,
-            detail: detail
+            name: address.name,
+            cellphone: address.cellphone,
+            province: address.province,
+            city: address.city,
+            distinct: address.distinct,
+            detail: address.detail
           }
         }"
-        @done="createAddressCallback"
+        @done="updateAddressCallback"
       >
         <template slot-scope="{ mutate, loading, error }">
           <div class="weui-cells weui-cells_form">
             <weui-distpciker
               v-if="showDistpicker"
-              :province="province"
-              :city="city"
-              :area="distinct"
+              :province="address.province"
+              :city="address.city"
+              :area="address.distinct"
               @confirm="distpickerConfirm"
               @cancel="distpickerCancel"
             >
@@ -36,7 +37,9 @@
                 <input
                   class="weui-input"
                   type="text"
-                  :placeholder="`${province}-${city}-${distinct}`"
+                  :placeholder="
+                    `${address.province}-${address.city}-${address.distinct}`
+                  "
                 />
               </div>
             </div>
@@ -49,7 +52,7 @@
                   class="weui-input"
                   type="text"
                   placeholder=""
-                  v-model="detail"
+                  v-model="address.detail"
                 />
               </div>
             </div>
@@ -61,7 +64,7 @@
                 <input
                   class="weui-input"
                   type=""
-                  v-model="name"
+                  v-model="address.name"
                   placeholder="收货人"
                 />
               </div>
@@ -74,7 +77,7 @@
                 <input
                   class="weui-input"
                   type="tel"
-                  v-model="cellphone"
+                  v-model="address.cellphone"
                   placeholder="请输入手机号"
                 />
               </div>
@@ -89,6 +92,13 @@
               >
                 确定
               </button>
+              <button
+                class="weui-btn weui-btn_warn"
+                :disabled="loading"
+                @click="deleteAddress"
+              >
+                删除
+              </button>
             </div>
           </div>
           <div v-for="err in callbackErrors" :key="err.key">
@@ -101,15 +111,22 @@
   </div>
 </template>
 <script>
-import { createAddress } from "@/graphql/page/address/createAddress.gql";
+import { updateAddress } from "@/graphql/page/address/updateAddress.gql";
 import TitleBar from "@/components/TitleBar";
 import loadingError from "@/components/loadingError";
 import gql from "graphql-tag";
 import WeuiDistpciker from "weui-distpicker";
 
-export default {
-  props: ["address"],
+const deleteAddressGql = gql`
+  mutation deleteAddress($id: ID!) {
+    deleteAddress(id: $id) {
+      status
+      message
+    }
+  }
+`;
 
+export default {
   components: {
     TitleBar,
     loadingError,
@@ -123,37 +140,55 @@ export default {
           id
         }
       }
-    `
+    `,
+    address: {
+      query() {
+        return gql`
+          query fetchInfo($addressId: ID!) {
+            address(id: $addressId) {
+              name
+              cellphone
+              province
+              city
+              distinct
+              detail
+            }
+          }
+        `;
+      },
+      variables() {
+        return { addressId: this.addressId };
+      },
+      update: data => data.address
+    }
   },
   mounted() {
-    console.log(this.$apolloData.data.currentUser);
+    this.addressId = this.$route.params.id;
   },
 
   data() {
     return {
-      currentUser: "",
+      currentUser: { id: 0 },
       showDistpicker: false,
       queries: {
-        createAddress: createAddress
+        updateAddress: updateAddress
       },
-      name: "",
-      cellphone: "",
-      province: "",
-      city: "",
-      distinct: "",
-      detail: "",
+      address: "",
+      addressId: 0,
+      deleteAddressStatus: "",
       callbackErrors: []
     };
   },
 
   methods: {
-    createAddressCallback: function(result) {
-      if (result.data.createAddress.address === null) {
-        console.log(result.data.createAddress.errors);
-        this.callbackErrors = result.data.createAddress.errors;
+    bug() {
+      debugger;
+    },
+    updateAddressCallback: function(result) {
+      if (result.data.updateAddress.address === null) {
+        this.callbackErrors = result.data.updateAddress.errors;
       } else {
-        console.log(result);
-        this.$router.replace({ name: "mypage-addresses" });
+        this.$router.push({ name: "mypage-addresses" });
       }
     },
 
@@ -162,15 +197,42 @@ export default {
     },
 
     distpickerConfirm: function(data) {
-      this.province = data[0].label;
-      this.city = data.length >= 2 ? data[1].label : "";
-      this.distinct = data.length == 3 ? data[2].label : "";
+      this.address.province = data[0].label;
+      this.address.city = data.length >= 2 ? data[1].label : "";
+      this.address.distinct = data.length == 3 ? data[2].label : "";
       this.showDistpicker = false;
-      console.log(this.province + this.city + this.distinct);
     },
 
     distpickerCancel: function() {
       this.showDistpicker = false;
+    },
+    deleteAddress() {
+      const that = this;
+      that.$apollo
+        .mutate({
+          mutation: deleteAddressGql,
+          variables: {
+            id: that.addressId
+          }
+        })
+        .then(function(result) {
+          if (
+            result.data.deleteAddress !== undefined &&
+            result.data.deleteAddress.status === "success"
+          ) {
+            that.$router.push({ name: "mypage-addresses" });
+          } else {
+            that.callbackErrors = [
+              {
+                key: "失败",
+                message: "网络繁忙，稍后再试。"
+              }
+            ];
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
   }
 };

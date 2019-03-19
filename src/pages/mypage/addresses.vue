@@ -2,7 +2,11 @@
   <div>
     <title-bar title="我的地址" back="back" />
     <div class="page weui-grids">
-      <ApolloQuery :query="queries.fetchUserAddresses" @result="baseInfoDone">
+      <ApolloQuery
+        :query="queries.fetchUserAddresses"
+        @result="baseInfoDone"
+        fetchPolicy="cache-and-network"
+      >
         <template slot-scope="{ result: { loading, error, data } }">
           <lading-error
             v-if="loading || error"
@@ -17,18 +21,22 @@
                   class="weui-media-box weui-media-box_text"
                   v-for="address in data.currentUser.addresses"
                   :key="address.id"
-                  :to="{ name: 'mypage-addresses-edit' }"
                 >
-                  <router-link :to="{ name: 'mypage-addresses-edit' }">
+                  <router-link
+                    :to="{
+                      name: 'mypage-addresses-edit',
+                      params: { id: address.id }
+                    }"
+                  >
                     <h4 class="weui-media-box__title">{{ address.name }}</h4>
                     <p class="weui-media-box__desc">
                       {{
                         `${address.province}-${address.city}-${
                           address.distinct
-                        }`
-                      }}<br />
-                      {{ address.detail }}
+                        }-${address.detail}`
+                      }}
                     </p>
+                    <p class="weui-media-box__desc">{{ address.cellphone }}</p>
                   </router-link>
                 </div>
               </div>
