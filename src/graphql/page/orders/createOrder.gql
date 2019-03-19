@@ -1,0 +1,32 @@
+mutation createOrder($info: CreateOrderInput!){
+  createOrder(input: $info) {
+    errors {
+      key
+      message
+    }
+    order {
+      id
+      amount
+      number
+      payment {
+        id
+        status
+      }
+      status
+      insertedAt
+      good {
+        id
+        name
+        description
+      }
+      address{
+        province
+        city
+        distinct
+        detail
+        name
+        cellphone
+      }
+    }
+  }
+}

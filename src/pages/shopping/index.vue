@@ -60,7 +60,7 @@
               </div>
             </div>
             <div class="weui-cells">
-              <div v-if="hasAddresses" class="weui-cell" @click="showPicker">
+              <div class="weui-cell" @click="showPicker">
                 <div class="weui-cell__bd">
                   <p>送货地址</p>
                 </div>
@@ -68,7 +68,7 @@
                   {{ selectedAddressDetail }}
                 </div>
               </div>
-              <div v-else class="weui-cell" @click="showNewAddPicker">
+              <div class="weui-cell" @click="toCreateAddress">
                 <div class="weui-cell__bd">
                   <p>添加送货地址</p>
                 </div>
@@ -91,26 +91,16 @@
         </template>
       </ApolloQuery>
     </div>
-    <weui-distpicker
-      v-if="showDistpicker"
-      :province="province"
-      :city="city"
-      :area="area"
-      @confirm="distpickerConfirm"
-      @cancel="distpickerCancel"
-    ></weui-distpicker>
   </div>
 </template>
 <script>
 import { fetchShoppingBaseInfo } from "@/graphql/page/shopping/shopping.gql";
 import TitleBar from "@/components/TitleBar";
 import ladingError from "@/components/loadingError";
-import WeuiDistpicker from "weui-distpicker";
 
 export default {
   components: {
     TitleBar,
-    WeuiDistpicker,
     ladingError
   },
 
@@ -126,8 +116,8 @@ export default {
       addresses: [],
       selectedAddressId: "",
       selectedAddressDetail: "请选择地址",
-      province: "湖北省",
-      city: "武汉市",
+      province: "",
+      city: "",
       area: ""
     };
   },
@@ -149,28 +139,17 @@ export default {
       this.addresses = result.data.currentUser.addresses;
     },
 
-    showNewAddPicker: function() {
-      this.showDistpicker = true;
-    },
-
-    distpickerConfirm: function(data) {
-      this.province = data[0].label;
-      this.city = data.length >= 2 ? data[1].label : "";
-      this.area = data.length == 3 ? data[2].label : "";
-      this.showDistpicker = false;
-      console.log(this.province + this.city + this.area);
-    },
-
-    distpickerCancel: function() {
-      this.showDistpicker = false;
+    toCreateAddress() {
+      this.$router.push({ name: "mypage-addresses-new" });
     },
 
     showPicker: function() {
       const that = this;
       const addPickerData = this.addresses.map(address => {
         return {
-          detail: address.detail,
-          label: address.name,
+          address: address,
+          label:
+            address.province + address.city + address.name + address.cellphone,
           value: address.id
         };
       });
@@ -181,11 +160,12 @@ export default {
           that.addresses[0] === undefined ? [] : [that.addresses[0].id],
         onConfirm: function(result) {
           that.selectedAddressId = result[0].value;
-          that.selectedAddressDetail = result[0].detail;
+          that.selectedAddressDetail =
+            result[0].address.name + "-" + result[0].address.cellphone;
         },
         id: "singleLinePicker"
       };
-      weui.picker(addPickerData, pickerOptions); // eslint-disable-line
+      weui.picker(addPickerData, pickerOptions);
     },
 
     submitOrder: function() {

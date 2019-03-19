@@ -38,6 +38,9 @@
       "plugin:vue/essential",
       "@vue/prettier"
     ],
+    "globals": {
+      "weui": true
+    },
     "rules": {
       "no-console": "off",
       "no-debugger": "off"
