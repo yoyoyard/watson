@@ -1,5 +1,5 @@
-mutation createOrder($info: CreateOrderInput!){
-  createOrder(input: $info) {
+mutation createOrder($input: CreateOrderInput!){
+  createOrder(input: $input) {
     errors {
       key
       message

@@ -1,5 +1,6 @@
 query fetchCurrentOrders($oFilter: FilterOrderInput){
   currentUser {
+    id
     orders(filter: $oFilter) {
     id
     good{

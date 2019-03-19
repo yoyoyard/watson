@@ -1,5 +1,6 @@
 query fetchShoppingBaseInfo($goodId: ID!){
   currentUser{
+    id
     addresses {
       id
       name
