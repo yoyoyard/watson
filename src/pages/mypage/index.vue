@@ -37,6 +37,15 @@
                       </div>
                       <span class="weui-cell__ft"></span>
                     </a>
+                    <router-link
+                      :to="{ name: 'mypage-addresses' }"
+                      class="weui-cell weui-cell_access"
+                    >
+                      <div class="weui-cell__bd weui-cell_primary">
+                        <p>我的地址</p>
+                      </div>
+                      <span class="weui-cell__ft"></span>
+                    </router-link>
                   </div>
                 </div>
               </div>

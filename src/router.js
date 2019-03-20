@@ -7,11 +7,6 @@ const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
-    // {
-    //   path: "/login",
-    //   name: "login",
-    //   component: () => import("./pages/login/index.vue")
-    // },
     {
       path: "/",
       name: "home",
@@ -46,6 +41,21 @@ const router = new Router({
       path: "/mypage",
       name: "mypage",
       component: () => import("./pages/mypage/index.vue")
+    },
+    {
+      path: "/mypage/addresses",
+      name: "mypage-addresses",
+      component: () => import("./pages/mypage/addresses.vue")
+    },
+    {
+      path: "/mypage/addresses/new",
+      name: "mypage-addresses-new",
+      component: () => import("./pages/mypage/addressNew.vue")
+    },
+    {
+      path: "/mypage/addresses/edit/:id",
+      name: "mypage-addresses-edit",
+      component: () => import("./pages/mypage/addressEdit.vue")
     },
     {
       path: "/hello",

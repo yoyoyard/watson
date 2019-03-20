@@ -1,10 +1,13 @@
 query fetchShoppingBaseInfo($goodId: ID!){
   currentUser{
+    id
     addresses {
       id
       name
+      cellphone
       province
       city
+      distinct
       detail
     }
   }

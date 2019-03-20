@@ -4,8 +4,8 @@
     <div class="page weui-grids">
       <ApolloQuery
         :query="queries.fetchOrderDetail"
-        :variables="{ id: $route.params.id }"
-        fetchPolicy="network-only"
+        :variables="{ id: this.oid }"
+        fetchPolicy="cache-and-network"
       >
         <template slot-scope="{ result: { loading, error, data } }">
           <lading-error
@@ -51,10 +51,6 @@ import TitleBar from "@/components/TitleBar";
 import ladingError from "@/components/loadingError";
 
 export default {
-  props: {
-    msg: String
-  },
-
   components: {
     TitleBar,
     ladingError
@@ -71,7 +67,6 @@ export default {
   data() {
     return {
       oid: "",
-      fetchOd: "",
       queries: {
         fetchOrderDetail: fetchOrderDetail
       }
