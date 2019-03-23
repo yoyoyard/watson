@@ -46,10 +46,13 @@
                   </div>
                   <div class="weui-media-box__bd">
                     <h4 class="weui-media-box__title">
-                      order {{ o.id }} : {{ o.good.name }}
+                      {{ o.good.name }}
                     </h4>
                     <p class="weui-media-box__desc">
                       {{ o.good.description }}
+                    </p>
+                    <p class="weui-media-box__desc">
+                      {{ fetchDate(o.good.insertedAt) }}
                     </p>
                     <div class="weui-media-box__desc weui-flex">
                       <div class="weui-flex__item">
@@ -121,8 +124,8 @@ export default {
   },
 
   methods: {
-    bug() {
-      debugger;
+    fetchDate(value) {
+      return value.split("T")[0];
     },
 
     fetchByStatus(status_text) {

@@ -50,12 +50,18 @@
             {{ selectedAddressDetail }}
           </div>
         </div>
-        <div class="weui-cell" @click="toCreateAddress">
+        <div class="weui-cell">
           <div class="weui-cell__bd">
             <p>添加送货地址</p>
           </div>
           <div class="weui-cell__ft">
-            <button>新增</button>
+            <a
+              class="weui-form-preview__btn weui-form-preview__btn_primary"
+              href="javascript:"
+              @click="toCreateAddress"
+            >
+              新增地址
+            </a>
           </div>
         </div>
       </div>
@@ -66,7 +72,7 @@
             href="javascript:"
             @click="submitOrder"
           >
-            操作
+            提交订单
           </a>
         </div>
       </div>
@@ -129,12 +135,11 @@ export default {
   },
 
   methods: {
-    // baseInfoDone: function(result) {
-    //   this.addresses = result.data.currentUser.addresses;
-    // },
-
     toCreateAddress() {
       this.$router.push({ name: "mypage-addresses-new" });
+    },
+    toMyOrder() {
+      this.$router.push({ name: "orders" });
     },
 
     showPicker: function() {
@@ -196,12 +201,12 @@ export default {
           }
         })
         .then(function(result) {
-          console.log(result);
-          // if (result.data.createOrder.errors !== null) {
-          //   console.log(result);
-          // } else {
-          //   that.callbackErrors = result.data.createOrder.errors;
-          // }
+          if (result.data.createOrder.errors === null) {
+            that.toMyOrder();
+          } else {
+            console.log(result);
+            that.callbackErrors = result.data.createOrder.errors;
+          }
         })
         .catch(error => {
           console.error(error);

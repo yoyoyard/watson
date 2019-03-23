@@ -15,7 +15,7 @@
           <div v-else-if="data" class="result apollo">
             <div class="account">
               <img
-                :src="data.currentUser.avatar || '@/assets/logo.png'"
+                :src="data.currentUser.avatar || require('@/assets/logo.png')"
                 class="avatar"
               />
               <h5 class="page__title">个人中心</h5>
