@@ -20,7 +20,7 @@
                   class="weui-media-box weui-media-box_appmsg"
                 >
                   <div class="weui-media-box__hd">
-                    <img :src="good.avatar" class="weui-media-box__thumb" />
+                    <img :src="good.avatar.url" class="weui-media-box__thumb" />
                   </div>
                   <div class="weui-media-box__bd">
                     <h4 class="weui-media-box__title">
@@ -29,7 +29,7 @@
                     <p class="weui-media-box__desc">
                       {{ good.description }}
                     </p>
-                    <p class="weui-media-box__desc price">{{ good.price }}</p>
+                    <p class="weui-media-box__desc price">￥{{ good.price }}</p>
                   </div>
                 </router-link>
               </div>
@@ -86,5 +86,6 @@ export default {
 
 .price {
   margin-top: 8px;
+  color:#e66457;
 }
 </style>

@@ -40,7 +40,7 @@
                 >
                   <div class="weui-media-box__hd">
                     <img
-                      src="@/assets/logo.png"
+                      :src="o.good.avatar.url |'@/assets/logo.png'"
                       class="weui-media-box__thumb"
                     />
                   </div>

@@ -13,7 +13,7 @@
             :error="error"
           />
           <div v-else-if="data" class="result apollo">
-            <div><img :src="data.good.avatar" class="avatar" /></div>
+            <div><img :src="data.good.avatar.url" class="avatar" /></div>
             <table>
               <tbody>
                 <tr>
@@ -78,7 +78,7 @@ export default {
       queries: {
         fetchProductDetail: fetchProductDetail
       },
-      id: ""
+      id: this.id
     };
   },
 

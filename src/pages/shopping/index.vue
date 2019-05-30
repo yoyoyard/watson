@@ -105,7 +105,7 @@ export default {
     `
   },
 
-  mounted() {
+  created() {
     this.fetchGood();
   },
 
@@ -178,6 +178,7 @@ export default {
         })
         .then(function(result) {
           that.addresses = result.data.currentUser.addresses;
+          that.currentUser.id=result.data.currentUser.id
           that.good = result.data.good;
         })
         .catch(error => {

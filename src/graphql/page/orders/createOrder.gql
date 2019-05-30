@@ -12,7 +12,6 @@ mutation createOrder($input: CreateOrderInput!){
         id
         status
       }
-      status
       insertedAt
       good {
         id

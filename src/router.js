@@ -43,6 +43,11 @@ const router = new Router({
       component: () => import("./pages/mypage/index.vue")
     },
     {
+      path: "/mypage/message",
+      name: "mypage-message",
+      component: () => import("./pages/mypage/userMessage.vue")
+    },
+    {
       path: "/mypage/addresses",
       name: "mypage-addresses",
       component: () => import("./pages/mypage/addresses.vue")

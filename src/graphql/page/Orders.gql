@@ -8,8 +8,9 @@ query fetchCurrentOrders($oFilter: FilterOrderInput){
       name
       description
       insertedAt
+      avatar
     }
-    amount
+    amount   
     number
     }
   }

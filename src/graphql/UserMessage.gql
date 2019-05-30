@@ -1,0 +1,9 @@
+query userMessage{
+    currentUser{
+        avatar
+        name
+        role
+        insertedAt
+        id
+    }
+}

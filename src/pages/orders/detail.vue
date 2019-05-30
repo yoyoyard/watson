@@ -1,6 +1,6 @@
 <template>
   <div>
-    <title-bar title="订单详情" back="/order" />
+    <title-bar title="订单详情" back="back" />
     <div class="page weui-grids">
       <ApolloQuery
         :query="queries.fetchOrderDetail"
@@ -20,7 +20,7 @@
                 class="weui-media-box weui-media-box_appmsg"
               >
                 <div class="weui-media-box__hd">
-                  <img class="weui-media-box__thumb" src="" alt="" />
+                  <img class="weui-media-box__thumb" :src="data.order.good.avatar.url" alt="" />
                 </div>
                 <div class="weui-media-box__bd">
                   <h4 class="weui-media-box__title">

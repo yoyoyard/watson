@@ -1,4 +1,4 @@
-mutation createWechatAuthUser($input: WechatAuthUserInput!) {
+mutation createWechatAuthUser($input: CreateWechatAuthUserInput!) {
   createWechatAuthUser (input: $input) {
     user {
       id

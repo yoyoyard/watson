@@ -5,6 +5,7 @@ query fetchOrderDetail($id: ID!){
       id
       name
       description
+      avatar
     }
     addressId
     number
