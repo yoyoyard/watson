@@ -1,9 +1,9 @@
 <template>
   <div>
-    <title-bar title="订单详情" back="back" />
+    <title-bar title="订单详情" back="back"/>
     <div class="page weui-grids">
       <div class="page preview">
-        <div class="page__hd">
+        <div class="page__hd page-title">
           <h1 class="page__title">提交订单</h1>
           <p class="page__desc">以下是您选购的商品</p>
         </div>
@@ -13,9 +13,7 @@
           <div class="weui-form-preview__hd">
             <div class="weui-form-preview__item">
               <label class="weui-form-preview__label">付款金额</label>
-              <em class="weui-form-preview__value">
-                ¥{{ good.price * goodNumber }}
-              </em>
+              <em class="weui-form-preview__value">¥{{ good.price * goodNumber }}</em>
             </div>
           </div>
           <div class="weui-form-preview__bd">
@@ -25,9 +23,7 @@
             </div>
             <div class="weui-form-preview__item">
               <label class="weui-form-preview__label">商品描述</label>
-              <span class="weui-form-preview__value">
-                {{ good.description }}
-              </span>
+              <span class="weui-form-preview__value">{{ good.description }}</span>
             </div>
             <div class="weui-form-preview__item">
               <label class="weui-form-preview__label">商品单价</label>
@@ -35,7 +31,11 @@
             </div>
             <div class="weui-form-preview__item">
               <label class="weui-form-preview__label">购买数量</label>
-              <span class="weui-form-preview__value">{{ goodNumber }}</span>
+              <div class="number-box">
+                <a href="javascript:;" class="weui-btn weui-btn_plain-default button-size" @click="()=>{if(goodNumber<=1){return}goodNumber--}">-</a>
+                <span class="number-value">{{ goodNumber }}</span>
+                <a href="javascript:;" class="weui-btn weui-btn_plain-default button-size" @click="goodNumber++">+</a>
+              </div>
             </div>
           </div>
           <div class="weui-form-preview__ft"></div>
@@ -46,9 +46,7 @@
           <div class="weui-cell__bd">
             <p>送货地址</p>
           </div>
-          <div class="weui-cell__ft">
-            {{ selectedAddressDetail }}
-          </div>
+          <div class="weui-cell__ft">{{ selectedAddressDetail }}</div>
         </div>
         <div class="weui-cell">
           <div class="weui-cell__bd">
@@ -59,9 +57,7 @@
               class="weui-form-preview__btn weui-form-preview__btn_primary"
               href="javascript:"
               @click="toCreateAddress"
-            >
-              新增地址
-            </a>
+            >新增地址</a>
           </div>
         </div>
       </div>
@@ -71,14 +67,10 @@
             class="weui-form-preview__btn weui-form-preview__btn_primary"
             href="javascript:"
             @click="submitOrder"
-          >
-            提交订单
-          </a>
+          >提交订单</a>
         </div>
       </div>
-      <div v-for="err in callbackErrors" :key="err.key">
-        {{ `${err.key}-${err.message}` }}
-      </div>
+      <div v-for="err in callbackErrors" :key="err.key">{{ `${err.key}-${err.message}` }}</div>
     </div>
   </div>
 </template>
@@ -178,7 +170,7 @@ export default {
         })
         .then(function(result) {
           that.addresses = result.data.currentUser.addresses;
-          that.currentUser.id=result.data.currentUser.id
+          that.currentUser.id = result.data.currentUser.id;
           that.good = result.data.good;
         })
         .catch(error => {
@@ -218,4 +210,27 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/styles/base.scss";
+.page-title {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.number-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .button-size {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 26px;
+    height: 26px;
+  }
+  .number-value {
+    display: block;
+    margin: 0 8px;
+    color:#000;
+  }
+}
 </style>

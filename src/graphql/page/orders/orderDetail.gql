@@ -6,10 +6,12 @@ query fetchOrderDetail($id: ID!){
       name
       description
       avatar
+      price
     }
     addressId
     number
     amount
+    status
     address {
       id
       detail

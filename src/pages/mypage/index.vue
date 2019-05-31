@@ -8,7 +8,7 @@
           <div v-else-if="data" class="result apollo">
             <div class="account">
               <img
-                :src="data.currentUser.avatar.url || require('@/assets/logo.png')"
+                :src="data.currentUser.avatar.url"
                 class="avatar"
               >
               <h4 class="page__title">{{ data.currentUser.name }}</h4>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <title-bar title="个人信息" />
+    <title-bar title="个人信息" :back="'back'"/>
     <ApolloQuery
       :query="require('@/graphql/UserMessage.gql')"
       fetchPolicy="cache-and-network"
@@ -13,21 +13,21 @@
             :error="error"
           />
           <div v-else-if="data" class="result apollo">
-            <div>
+            <div class="message-cell" style="border-top:1px solid #eee;">
                 <span>头像</span>
-                <img :src="data.currentUser.avatar.url" alt="">
+                <img :src="data.currentUser.avatar.url" height="66" width="66" :alt="data.currentUser.name">
             </div>
-            <div>
+            <div class="message-cell">
                 <span>昵称</span>
                 <span>{{data.currentUser.name}}</span>
             </div>
-            <div>
+            <div class="message-cell">
                 <span>UID</span>
                 <span>{{data.currentUser.id}}</span>
             </div>
-            <div>
+            <div class="message-cell">
                 <span>注册时间</span>
-                <span>{{data.currentUser.insertedAt}}</span>
+                <span>{{data.currentUser.insertedAt | dateFilter}}</span>
             </div>
           </div>
         </div>
@@ -61,5 +61,16 @@ export default {
 @import "@/assets/styles/base.scss";
 .page {
   margin-top: 80px;
+  .message-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px 20px;
+    background-color: #fdfdfd;
+    border-bottom: 1px solid #eee;
+    img {
+      border-radius: 50%;
+    }
+  }
 }
 </style>

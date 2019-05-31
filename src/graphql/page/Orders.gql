@@ -9,9 +9,15 @@ query fetchCurrentOrders($oFilter: FilterOrderInput){
       description
       insertedAt
       avatar
+      price
     }
     amount   
     number
+    status
+    }
+    orders{
+      id
     }
   }
+  
 }

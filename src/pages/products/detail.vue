@@ -14,7 +14,7 @@
           />
           <div v-else-if="data" class="result apollo">
             <div><img :src="data.good.avatar.url" class="avatar" /></div>
-            <table>
+            <table class="good-message">
               <tbody>
                 <tr>
                   <td>产品名</td>
@@ -26,11 +26,11 @@
                 </tr>
                 <tr>
                   <td>价格</td>
-                  <td>{{ data.good.price }}</td>
+                  <td>￥{{ data.good.price }}</td>
                 </tr>
                 <tr>
                   <td>上架时间</td>
-                  <td>{{ data.good.updatedAt }}</td>
+                  <td>{{ data.good.updatedAt | dateFilter }}</td>
                 </tr>
               </tbody>
             </table>
@@ -113,5 +113,9 @@ export default {
   margin-right: 16px;
   border-radius: 20px;
   color: white;
+}
+.good-message {
+  width:100%;
+  padding:0 20px;
 }
 </style>

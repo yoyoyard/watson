@@ -40,7 +40,7 @@
                 >
                   <div class="weui-media-box__hd">
                     <img
-                      :src="o.good.avatar.url |'@/assets/logo.png'"
+                      :src="o.good.avatar.url"
                       class="weui-media-box__thumb"
                     />
                   </div>
@@ -54,7 +54,7 @@
                     <p class="weui-media-box__desc">
                       {{ fetchDate(o.good.insertedAt) }}
                     </p>
-                    <div class="weui-media-box__desc weui-flex">
+                    <div class="weui-media-box__desc weui-flex" v-if="o.status ==='finished'">
                       <div class="weui-flex__item">
                         <div class="placeholder">查看物流</div>
                       </div>
@@ -63,6 +63,14 @@
                       </div>
                       <div class="weui-flex__item">
                         <div class="placeholder">申请开票</div>
+                      </div>
+                    </div>
+                     <div class="weui-media-box__desc weui-flex" style="width:66%;text-align:left;" v-else-if="o.status ==='created'">
+                      <div class="weui-flex__item">
+                        <div class="placeholder">付款</div>
+                      </div>
+                      <div class="weui-flex__item">
+                        <div class="placeholder">咨询</div>
                       </div>
                     </div>
                   </div>
@@ -112,15 +120,11 @@ export default {
       } else if (this.isUnfinishOrder) {
         return {
           oFilter: {
-            status: `{"cond": "eq", "value": "pre_pay" }`
+            status: `{"cond": "eq", "value": "created" }`
           }
         };
       } else return {};
     }
-  },
-
-  mounted() {
-    console.log("order page");
   },
 
   methods: {

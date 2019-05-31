@@ -8,6 +8,7 @@ mutation createOrder($input: CreateOrderInput!){
       id
       amount
       number
+      status
       payment {
         id
         status
