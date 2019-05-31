@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view :key="key" />
   </div>
 </template>
 
@@ -31,6 +31,11 @@ const parseQueryString = queryString => {
 
 export default {
   name: "app",
+  computed:{
+	    key(){
+	        return this.$route.path + Math.random();
+	    }
+	},
 
   async beforeCreate() {
     // when have token just bypass

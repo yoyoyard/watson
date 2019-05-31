@@ -1,16 +1,12 @@
 <template>
   <div>
-    <title-bar title="基因检测" />
+    <title-bar title="基因检测"/>
     <div class="page weui-grids">
       <div class="weui-panel weui-panel_access">
         <div class="weui-panel__bd">
-          <ApolloQuery :query="require('@/graphql/page/Products.gql')">
+          <ApolloQuery :query="require('@/graphql/page/Products.gql')" fetchPolicy="cache-and-network">
             <template slot-scope="{ result: { loading, error, data } }">
-              <lading-error
-                v-if="loading || error"
-                :loading="loading"
-                :error="error"
-              />
+              <lading-error v-if="loading || error" :loading="loading" :error="error"/>
               <!-- Result -->
               <div v-else-if="data" class="result apollo">
                 <router-link
@@ -20,18 +16,17 @@
                   class="weui-media-box weui-media-box_appmsg"
                 >
                   <div class="weui-media-box__hd">
-                    <img :src="good.avatar.url" class="weui-media-box__thumb" />
+                    <img :src="good.avatar.url" class="weui-media-box__thumb">
                   </div>
                   <div class="weui-media-box__bd">
-                    <h4 class="weui-media-box__title">
-                      {{ good.name }}
-                    </h4>
-                    <p class="weui-media-box__desc">
-                      {{ good.description }}
-                    </p>
+                    <h4 class="weui-media-box__title">{{ good.name }}</h4>
+                    <p class="weui-media-box__desc">{{ good.description }}</p>
                     <p class="weui-media-box__desc price">￥{{ good.price }}</p>
                   </div>
                 </router-link>
+              </div>
+              <div v-if="!loading" class="weui-loadmore weui-loadmore_line">
+                <span class="weui-loadmore__tips">已经加载全部了~</span>
               </div>
             </template>
           </ApolloQuery>
@@ -39,7 +34,7 @@
       </div>
     </div>
     <div class="fix-nav"></div>
-    <navigator activeIndex="products" />
+    <navigator activeIndex="products"/>
   </div>
 </template>
 
@@ -49,7 +44,7 @@ import TitleBar from "@/components/TitleBar";
 import ladingError from "@/components/loadingError";
 
 export default {
-  name: "HelloWorld",
+  name: "products-index",
 
   components: {
     TitleBar,
@@ -86,6 +81,6 @@ export default {
 
 .price {
   margin-top: 8px;
-  color:#e66457;
+  color: #e66457;
 }
 </style>

@@ -50,13 +50,13 @@
                   </div>
                 </div>
               </div>
-              <div class="weui-panel__ft">
+              <div class="weui-panel__ft" v-if="data.order.status==='finished'">
                 <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
                   <div class="weui-cell__bd">查看详细物流信息</div>
                   <span class="weui-cell__ft"></span>
                 </a>
               </div>
-              <div class="weui-form-preview__ft">
+              <div class="weui-form-preview__ft" v-else-if="data.order.status==='created'">
                 <a
                   class="weui-btn weui-btn_block weui-btn_primary"
                   style="width:80%;margin-top:30px;"

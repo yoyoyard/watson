@@ -64,7 +64,8 @@
       <div class="button-sp-area">
         <div class="weui-form-preview__ft">
           <a
-            class="weui-form-preview__btn weui-form-preview__btn_primary"
+            class="weui-btn weui-btn_block weui-btn_primary"
+            style="width:80%;margin-top:30px;"
             href="javascript:"
             @click="submitOrder"
           >提交订单</a>
