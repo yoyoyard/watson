@@ -31,6 +31,10 @@
                     <span class="weui-form-preview__value">{{ data.order.id }}</span>
                   </div>
                   <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">创建时间</label>
+                    <span class="weui-form-preview__value">{{ data.order.insertedAt | dateFilter }}</span>
+                  </div>
+                  <div class="weui-form-preview__item">
                     <label class="weui-form-preview__label">商品</label>
                     <span class="weui-form-preview__value">{{ data.order.good.name }}</span>
                   </div>

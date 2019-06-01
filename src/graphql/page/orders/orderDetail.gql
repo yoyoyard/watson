@@ -9,6 +9,7 @@ query fetchOrderDetail($id: ID!){
       price
     }
     addressId
+    insertedAt
     number
     amount
     status

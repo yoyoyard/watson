@@ -1,8 +1,9 @@
-query fetchCurrentOrders($oFilter: FilterOrderInput){
+query fetchCurrentOrders($oFilter: FilterOrderInput,$order:[OrderInput]){
   currentUser {
     id
-    orders(filter: $oFilter) {
+    orders(filter: $oFilter,order:$order) {
     id
+    insertedAt
     good{
       id
       name
@@ -15,9 +16,5 @@ query fetchCurrentOrders($oFilter: FilterOrderInput){
     number
     status
     }
-    orders{
-      id
-    }
   }
-  
 }
