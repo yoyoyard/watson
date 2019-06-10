@@ -2,7 +2,7 @@
 module.exports = {
   devServer: {
     disableHostCheck: true,
-    proxy: "https://safety.yimei.io",
-    public: "safety.yimei.io"
+    proxy: "http://watson.yimei.io",
+    public: "watson.yimei.io"
   }
 };

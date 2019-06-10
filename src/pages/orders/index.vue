@@ -4,7 +4,6 @@
     <ApolloQuery
       :query="require('@/graphql/page/Orders.gql')"
       :variables="{
-        order:[{name:'insertedAt',order:'SPECIAL'}],
         oFilter:filter
       }"
       fetchPolicy="cache-and-network"

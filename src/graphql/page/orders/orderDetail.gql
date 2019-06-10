@@ -13,8 +13,17 @@ query fetchOrderDetail($id: ID!){
     number
     amount
     status
+    userId
+    uniqueNumber
+    payment{
+      status
+      uniqueNumber
+    }
     address {
       id
+      province
+      city
+      distinct
       detail
     }
   }

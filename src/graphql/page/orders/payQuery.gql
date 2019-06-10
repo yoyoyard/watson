@@ -1,0 +1,9 @@
+query payQuery($url: String!){
+  JsapiParamsUser(url: $url){
+    appid
+    noncestr
+    signature
+    timestamp
+    url
+  }
+}

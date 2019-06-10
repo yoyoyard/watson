@@ -1,0 +1,15 @@
+mutation createPayment($input:CreatePaymentInput!){
+  createPayment(input:$input){
+    payment{
+        id
+        amount
+        orderId
+        uniqueNumber
+        userId
+    }
+    errors{
+        key
+        message
+    }
+  }
+}

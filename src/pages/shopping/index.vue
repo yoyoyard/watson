@@ -32,9 +32,17 @@
             <div class="weui-form-preview__item">
               <label class="weui-form-preview__label">购买数量</label>
               <div class="number-box">
-                <a href="javascript:;" class="weui-btn weui-btn_plain-default button-size" @click="()=>{if(goodNumber<=1){return}goodNumber--}">-</a>
+                <a
+                  href="javascript:;"
+                  class="weui-btn weui-btn_plain-default button-size"
+                  @click="()=>{if(goodNumber<=1){return}goodNumber--}"
+                >-</a>
                 <span class="number-value">{{ goodNumber }}</span>
-                <a href="javascript:;" class="weui-btn weui-btn_plain-default button-size" @click="goodNumber++">+</a>
+                <a
+                  href="javascript:;"
+                  class="weui-btn weui-btn_plain-default button-size"
+                  @click="goodNumber++"
+                >+</a>
               </div>
             </div>
           </div>
@@ -73,6 +81,13 @@
       </div>
       <div v-for="err in callbackErrors" :key="err.key">{{ `${err.key}-${err.message}` }}</div>
     </div>
+    <div class="weui-toast" v-show="toast">
+      <i
+        class="weui-icon-warn weui-icon_msg"
+        style="font-size:60px;margin-top:20px;margin-bottom:10px;"
+      ></i>
+      <p class="weui-toast__content">请选择收货地址</p>
+    </div>
   </div>
 </template>
 <script>
@@ -107,6 +122,7 @@ export default {
       currentUser: { id: 0 },
       showDistpicker: false,
       goodNumber: 1,
+      toast: false,
       good: {
         avatar: "",
         description: "",
@@ -181,30 +197,37 @@ export default {
 
     submitOrder: function() {
       const that = this;
-      that.$apollo
-        .mutate({
-          mutation: createOrder,
-          variables: {
-            input: {
-              addressId: that.selectedAddressId,
-              number: that.goodNumber,
-              amount: that.good.price * that.goodNumber,
-              goodId: that.good.id,
-              userId: that.currentUser.id
+      if (this.selectedAddressId) {
+        that.$apollo
+          .mutate({
+            mutation: createOrder,
+            variables: {
+              input: {
+                addressId: that.selectedAddressId,
+                number: that.goodNumber,
+                amount: that.good.price * that.goodNumber,
+                goodId: that.good.id,
+                userId: that.currentUser.id
+              }
             }
-          }
-        })
-        .then(function(result) {
-          if (result.data.createOrder.errors === null) {
-            that.toMyOrder();
-          } else {
-            console.log(result);
-            that.callbackErrors = result.data.createOrder.errors;
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        });
+          })
+          .then(function(result) {
+            if (result.data.createOrder.errors === null) {
+              that.toMyOrder();
+            } else {
+              console.log(result);
+              that.callbackErrors = result.data.createOrder.errors;
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      } else {
+        this.toast = true;
+        setTimeout(() => {
+          this.toast = false;
+        }, 2000);
+      }
     }
   }
 };
@@ -231,7 +254,7 @@ export default {
   .number-value {
     display: block;
     margin: 0 8px;
-    color:#000;
+    color: #000;
   }
 }
 </style>

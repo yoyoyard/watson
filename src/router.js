@@ -33,6 +33,11 @@ const router = new Router({
       component: () => import("./pages/orders/index.vue")
     },
     {
+      path: "/orders/success",
+      name: "orders-success",
+      component: () => import("./pages/orders/success.vue")
+    },
+    {
       path: "/orders/:id",
       name: "order",
       component: () => import("./pages/orders/detail.vue")

@@ -7,10 +7,7 @@
           <lading-error v-if="loading || error" :loading="loading" :error="error"/>
           <div v-else-if="data" class="result apollo">
             <div class="account">
-              <img
-                :src="data.currentUser.avatar.url"
-                class="avatar"
-              >
+              <img :src="data.currentUser.avatar.url" class="avatar">
               <h4 class="page__title">{{ data.currentUser.name }}</h4>
             </div>
             <div class="weui-panel">

@@ -28,7 +28,7 @@
                 <div class="weui-form-preview__bd">
                   <div class="weui-form-preview__item">
                     <label class="weui-form-preview__label">订单编号</label>
-                    <span class="weui-form-preview__value">{{ data.order.id }}</span>
+                    <span class="weui-form-preview__value">{{ data.order.uniqueNumber }}</span>
                   </div>
                   <div class="weui-form-preview__item">
                     <label class="weui-form-preview__label">创建时间</label>
@@ -46,6 +46,10 @@
                     <label class="weui-form-preview__label">单价</label>
                     <span class="weui-form-preview__value">¥{{ data.order.good.price }}</span>
                   </div>
+                  <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">收货地址</label>
+                    <span class="weui-form-preview__value">{{ `${data.order.address.province}${data.order.address.city}${data.order.address.distinct}${data.order.address.detail}`}}</span>
+                  </div>
                 </div>
                 <div class="weui-form-preview__hd">
                   <div class="weui-form-preview__item">
@@ -61,11 +65,11 @@
                 </a>
               </div>
               <div class="weui-form-preview__ft" v-else-if="data.order.status==='created'">
-                <a
+                <div
                   class="weui-btn weui-btn_block weui-btn_primary"
                   style="width:80%;margin-top:30px;"
-                  href="javascript:"
-                >付款</a>
+                  @click="goPay(data.order.good.name,data.order.payment,data.order.userId,data.order.id)"
+                >付款</div>
               </div>
             </div>
           </div>
@@ -77,6 +81,9 @@
 
 <script>
 import { fetchOrderDetail } from "@/graphql/page/orders/orderDetail.gql";
+import { payQuery } from "@/graphql/page/orders/payQuery.gql";
+import { payMutate } from "@/graphql/page/orders/payMutate.gql";
+import { createPayment } from "@/graphql/page/orders/createPayment.gql";
 import TitleBar from "@/components/TitleBar";
 import ladingError from "@/components/loadingError";
 
@@ -90,19 +97,86 @@ export default {
     this.oid = this.$route.params.id;
   },
 
-  mounted() {
-    // console.log(this.$route.params);
+  created() {
+    this.$apollo
+      .query({
+        fetchPolicy: "no-cache",
+        variables: { url: window.location.href },
+        query: payQuery,
+        fetchResults: true
+      })
+      .then(result => {
+        let config = Object.assign(
+          { debug: false, jsApiList: ["chooseWXPay"] },
+          result.data.JsapiParamsUser
+        );
+        delete config.url;
+        config.appId = config.appid;
+        delete config.appid;
+        config.nonceStr = config.noncestr;
+        delete config.noncestr;
+        wx.config(config);
+        wx.error(res => {
+          console.log(res);
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
 
   data() {
     return {
       oid: "",
+      payQuery,
+      payMutate,
       queries: {
         fetchOrderDetail: fetchOrderDetail
       }
     };
   },
-  methdos: {}
+  methods: {
+    async goPay(name, payment, userId, orderId) {
+      var uniqueNumber;
+      if (!payment) {
+        let result = await this.$apollo.mutate({
+          fetchPolicy: "no-cache",
+          fetchResults: true,
+          variables: {
+            input: { orderId, userId }
+          },
+          mutation: createPayment
+        });
+        uniqueNumber = result.data.createPayment.payment.uniqueNumber;
+      } else {
+        uniqueNumber = payment.uniqueNumber;
+      }
+      let paymentResult = await this.$apollo.mutate({
+        fetchPolicy: "no-cache",
+        fetchResults: true,
+        variables: {
+          input: { body: name, outTradeNo: uniqueNumber }
+        },
+        mutation: payMutate
+      });
+      let input = Object.assign(
+        {
+          successs: res => {
+            this.$router.push({name:'orders-success'})
+          },
+          fail: res => {
+            console.log(res);
+          },
+          cancel:res=>{
+            console.log(res)
+          }
+        },
+        paymentResult.data.wechatJsapiPayPayment
+      );
+      delete input.appId;
+      wx.chooseWXPay(input);
+    }
+  }
 };
 </script>
 

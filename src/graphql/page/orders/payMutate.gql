@@ -1,0 +1,10 @@
+mutation payMutate($input:WechatJsapiPayInput!){
+  wechatJsapiPayPayment(input:$input){
+    appId
+    nonceStr
+    package
+    paySign
+    signType
+    timeStamp
+  }
+}
